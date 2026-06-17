@@ -215,26 +215,29 @@
       <div class="section-sub">{% trans "Профессионалы с многолетним опытом в аудите и консалтинге" %}</div>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="team-card" data-animate="scale-in" data-delay="100">
-        <div class="avatar">ПН</div>
-        <h4 class="text-[13px] font-semibold text-navy mb-1">Прокудина Н.Н.</h4>
-        <p class="text-[11.5px] text-body-text">{% trans "Директор" %}</p>
-      </div>
-      <div class="team-card" data-animate="scale-in" data-delay="200">
-        <div class="avatar">ТР</div>
-        <h4 class="text-[13px] font-semibold text-navy mb-1">Раджабов Т.Р.</h4>
-        <p class="text-[11.5px] text-body-text">{% trans "Директор по аудиту" %}</p>
-      </div>
-      <div class="team-card" data-animate="scale-in" data-delay="300">
-        <div class="avatar">НЮ</div>
-        <h4 class="text-[13px] font-semibold text-navy mb-1">Ли Ю.И.</h4>
-        <p class="text-[11.5px] text-body-text">{% trans "Аудитор" %}</p>
-      </div>
-      <div class="team-card" data-animate="scale-in" data-delay="400">
-        <div class="avatar">СА</div>
-        <h4 class="text-[13px] font-semibold text-navy mb-1">Надажанов С.А.</h4>
-        <p class="text-[11.5px] text-body-text">{% trans "Программист" %}</p>
+    {# Carousel — overflow hidden on section, track slides L→R #}
+    <div id="team-carousel" class="overflow-hidden -mx-1">
+      <div id="team-track" class="flex" style="gap:16px; will-change:transform">
+        <div class="team-card" style="flex-shrink:0">
+          <div class="avatar">ПН</div>
+          <h4 class="text-[13px] font-semibold text-navy mb-1">Прокудина Н.Н.</h4>
+          <p class="text-[11.5px] text-body-text">{% trans "Директор" %}</p>
+        </div>
+        <div class="team-card" style="flex-shrink:0">
+          <div class="avatar">ТР</div>
+          <h4 class="text-[13px] font-semibold text-navy mb-1">Раджабов Т.Р.</h4>
+          <p class="text-[11.5px] text-body-text">{% trans "Директор по аудиту" %}</p>
+        </div>
+        <div class="team-card" style="flex-shrink:0">
+          <div class="avatar">НЮ</div>
+          <h4 class="text-[13px] font-semibold text-navy mb-1">Ли Ю.И.</h4>
+          <p class="text-[11.5px] text-body-text">{% trans "Аудитор" %}</p>
+        </div>
+        <div class="team-card" style="flex-shrink:0">
+          <div class="avatar">СА</div>
+          <h4 class="text-[13px] font-semibold text-navy mb-1">Надажанов С.А.</h4>
+          <p class="text-[11.5px] text-body-text">{% trans "Программист" %}</p>
+        </div>
       </div>
     </div>
 
@@ -295,4 +298,69 @@
   </div>
 </section>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var container = document.getElementById('team-carousel');
+  var track     = document.getElementById('team-track');
+  if (!container || !track) return;
+
+  var GAP    = 16;
+  var paused = false;
+  var busy   = false;
+  var pos    = 0;
+
+  /* Clone original cards so the loop is seamless */
+  var originals = Array.from(track.children);
+  var origCount = originals.length;
+  originals.forEach(function (c) { track.appendChild(c.cloneNode(true)); });
+
+  function getCfg() {
+    var w       = container.offsetWidth;
+    var perView = w >= 900 ? 3 : (w >= 560 ? 2 : 1);
+    var cardW   = (w - GAP * (perView - 1)) / perView;
+    return { step: cardW + GAP, cardW: cardW };
+  }
+
+  function applyWidths() {
+    var c = getCfg();
+    Array.from(track.children).forEach(function (card) {
+      card.style.width = c.cardW + 'px';
+    });
+    track.style.transition = 'none';
+    track.style.transform  = 'translateX(-' + (pos * getCfg().step) + 'px)';
+  }
+
+  function advance() {
+    if (busy || paused) return;
+    busy = true;
+    pos++;
+
+    var step = getCfg().step;
+    track.style.transition = 'transform 0.75s cubic-bezier(0.4, 0, 0.2, 1)';
+    track.style.transform  = 'translateX(-' + (pos * step) + 'px)';
+
+    setTimeout(function () {
+      if (pos >= origCount) {
+        /* Silently snap back — clones at pos=origCount look identical to pos=0 */
+        pos = 0;
+        track.style.transition = 'none';
+        track.style.transform  = 'translateX(0)';
+        track.offsetHeight; /* force reflow */
+      }
+      busy = false;
+    }, 800);
+  }
+
+  applyWidths();
+  window.addEventListener('resize', applyWidths);
+
+  container.addEventListener('mouseenter', function () { paused = true; });
+  container.addEventListener('mouseleave', function () { paused = false; });
+
+  setInterval(advance, 2600);
+})();
+</script>
 {% endblock %}
