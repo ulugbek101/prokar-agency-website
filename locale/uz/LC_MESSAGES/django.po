@@ -292,3 +292,9 @@ msgstr "Biz qayerdamiz"
 
 msgid "Наш офис"
 msgstr "Bizning ofis"
+
+msgid "Яндекс Навигатор"
+msgstr "Yandex Navigator"
+
+msgid "Google Maps"
+msgstr "Google Maps"

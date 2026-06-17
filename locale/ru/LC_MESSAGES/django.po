@@ -292,3 +292,9 @@ msgstr "Где мы находимся"
 
 msgid "Наш офис"
 msgstr "Наш офис"
+
+msgid "Яндекс Навигатор"
+msgstr "Яндекс Навигатор"
+
+msgid "Google Maps"
+msgstr "Google Maps"
