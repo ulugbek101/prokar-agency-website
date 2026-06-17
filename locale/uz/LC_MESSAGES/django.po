@@ -283,3 +283,6 @@ msgstr "O'zR Audit palatasi"
 
 msgid "Страховой полис №3708/45/0934"
 msgstr "Sug'urta polisi №3708/45/0934"
+
+msgid "Открыть на карте"
+msgstr "Xaritada ochish"

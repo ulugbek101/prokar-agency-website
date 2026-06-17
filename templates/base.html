@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
   {% if debug %}
     {# Tailwind Play CDN for development when CSS not yet compiled #}
@@ -209,6 +210,17 @@
     </div>
   </section>
 
+  {# ── Map — always in footer ──────────────────────────────────────────── #}
+  <div class="relative" style="height:300px;">
+    <div id="office-map" style="height:100%;width:100%;"></div>
+    {# "Open in maps" shortcut pinned over the map #}
+    <a href="https://www.openstreetmap.org/?mlat=41.28464&mlon=69.26558#map=17/41.28464/69.26558"
+       target="_blank" rel="noopener"
+       class="absolute bottom-3 right-3 z-[1000] flex items-center gap-1.5 bg-white/90 text-navy text-[11px] font-semibold px-3 py-1.5 rounded-full shadow hover:bg-white transition-colors no-underline">
+      <i class="ti ti-external-link text-[13px]"></i> {% trans "Открыть на карте" %}
+    </a>
+  </div>
+
   {# ── Footer bar ──────────────────────────────────────────────────────── #}
   <footer class="bg-[#060F1E] px-8 py-8">
     <div class="max-w-content mx-auto flex flex-wrap items-center justify-between gap-4">
@@ -227,6 +239,52 @@
       </div>
     </div>
   </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    (function () {
+      var LAT = 41.284646, LNG = 69.265587;
+
+      var map = L.map('office-map', {
+        center: [LAT, LNG],
+        zoom: 17,
+        scrollWheelZoom: false,
+        zoomControl: true,
+      });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20,
+      }).addTo(map);
+
+      var markerHtml =
+        '<div style="' +
+          'width:20px;height:20px;' +
+          'background:#0B1E3D;' +
+          'border:3px solid #C9A84C;' +
+          'border-radius:50%;' +
+          'box-shadow:0 0 0 4px rgba(201,168,76,0.25);' +
+        '"></div>';
+
+      var icon = L.divIcon({
+        className: '',
+        html: markerHtml,
+        iconSize: [20, 20],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, -14],
+      });
+
+      L.marker([LAT, LNG], { icon: icon })
+        .addTo(map)
+        .bindPopup(
+          '<strong style="color:#0B1E3D;font-size:13px">Prokar Ekspert Audit</strong><br>' +
+          '<span style="color:#5A6E8C;font-size:12px">ул. Битик Берег 70, корп. 2<br>Яккасарайский р-н, Ташкент</span>',
+          { maxWidth: 210 }
+        )
+        .openPopup();
+    })();
+  </script>
 
   {% block extra_js %}{% endblock %}
 </body>
