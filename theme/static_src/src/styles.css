@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply font-sans text-navy bg-white;
+  }
+}
+
+@layer components {
+  /* ── Buttons ─────────────────────────────────────── */
+  .btn-primary {
+    @apply bg-gold text-navy font-bold py-[11px] px-6 rounded-[7px] text-[13px] cursor-pointer border-0 transition-opacity hover:opacity-90;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent text-white border border-white/25 py-[11px] px-6 rounded-[7px] text-[13px] cursor-pointer inline-flex items-center gap-2 transition-colors hover:border-gold hover:text-gold;
+  }
+
+  .btn-red {
+    @apply bg-brand-red text-white font-semibold py-[11px] px-6 rounded-[7px] text-[13px] cursor-pointer border-0 transition-opacity hover:opacity-90;
+  }
+
+  .btn-outline {
+    @apply bg-transparent text-white border border-white/25 py-[11px] px-6 rounded-[7px] text-[13px] cursor-pointer inline-flex items-center gap-2 transition-colors hover:border-gold hover:text-gold;
+  }
+
+  /* ── Cards ───────────────────────────────────────── */
+  .service-card {
+    @apply bg-white rounded-[10px] border border-[0.5px] border-border-light p-5 transition-colors hover:border-gold;
+  }
+
+  .usp-item {
+    @apply flex items-start gap-3 bg-white rounded-[10px] border border-[0.5px] border-border-light p-5;
+  }
+
+  .usp-badge {
+    @apply w-10 h-10 rounded-lg bg-navy flex items-center justify-center shrink-0;
+  }
+
+  .team-card {
+    @apply bg-white rounded-[10px] border border-[0.5px] border-border-light p-5 text-center;
+  }
+
+  .avatar {
+    @apply w-14 h-14 rounded-full bg-navy flex items-center justify-center text-base font-bold text-gold mx-auto mb-3;
+  }
+
+  /* ── Nav ─────────────────────────────────────────── */
+  .nav-link {
+    @apply text-[#A8BCE0] text-[13px] no-underline hover:text-gold transition-colors;
+  }
+
+  /* ── Section ─────────────────────────────────────── */
+  .section-label {
+    @apply text-brand-red text-[11px] font-bold tracking-widest uppercase mb-2;
+  }
+
+  .section-title {
+    @apply text-navy text-2xl font-bold mb-2;
+  }
+
+  .section-sub {
+    @apply text-body-text text-sm;
+  }
+
+  /* ── Contact ─────────────────────────────────────── */
+  .contact-icon {
+    @apply w-10 h-10 bg-navy/[0.06] rounded-lg flex items-center justify-center shrink-0;
+  }
+
+  /* ── Feedback form ───────────────────────────────── */
+  .feedback-input {
+    @apply w-full bg-navy-mid/60 border border-white/10 rounded-lg px-4 py-3 text-white text-[13px] placeholder-navy-text/60 focus:outline-none focus:border-gold/50 transition-colors resize-none;
+  }
+
+  /* ── Cert pill ───────────────────────────────────── */
+  .cert-pill {
+    @apply inline-flex items-center gap-2 bg-white border border-[0.5px] border-border-light rounded-lg py-2 px-4 text-[12.5px] text-navy font-medium;
+  }
+
+  /* ── Stat ────────────────────────────────────────── */
+  .stat-item {
+    @apply bg-white/[0.04] py-5 px-4 text-center;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
