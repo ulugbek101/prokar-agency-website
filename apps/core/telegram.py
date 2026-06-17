@@ -24,12 +24,10 @@ def send_feedback_notification(feedback):
 
     phone = feedback.phone.strip()
     phone_digits = phone.replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
-    phone_tg = phone_digits.lstrip("+")
 
     text = (
         f"<b>{feedback.full_name}</b>\n"
-        f'<a href="tel:{phone_digits}">{phone}</a>  ·  '
-        f'<a href="tg://resolve?phone={phone_tg}">Открыть в Telegram</a>\n\n'
+        f'<a href="tel:{phone_digits}">{phone}</a>\n\n'
         f"<i>{feedback.body}</i>"
     )
 
