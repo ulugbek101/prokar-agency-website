@@ -1,0 +1,233 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Prokar Ekspert Audit{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% trans 'Аудит, бухгалтерия, налоги и юридическое сопровождение бизнеса в Узбекистане' %}{% endblock %}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+
+  {% if debug %}
+    {# Tailwind Play CDN for development when CSS not yet compiled #}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              navy:         { DEFAULT: '#0B1E3D', mid: '#132952', dark: '#060F1E' },
+              gold:         { DEFAULT: '#C9A84C', muted: 'rgba(201,168,76,0.15)' },
+              'brand-red':  '#C0392B',
+              'off-white':  '#F4F6FA',
+              'muted-blue': '#8A9BB5',
+              'navy-text':  '#7A9AC5',
+              'body-text':  '#5A6E8C',
+              'border-light': '#D8E0EE',
+              'footer-link':  '#3A5070',
+            },
+            fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          },
+        },
+      }
+    </script>
+    <style type="text/tailwindcss">
+      @layer components {
+        .btn-primary  { @apply bg-gold text-navy font-bold py-[11px] px-6 rounded-[7px] text-[13px] cursor-pointer border-0 transition-opacity hover:opacity-90; }
+        .btn-secondary{ @apply bg-transparent text-white border border-white/25 py-[11px] px-6 rounded-[7px] text-[13px] cursor-pointer inline-flex items-center gap-2 hover:border-gold hover:text-gold; }
+        .btn-red      { @apply bg-brand-red text-white font-semibold py-[11px] px-6 rounded-[7px] text-[13px] border-0 cursor-pointer hover:opacity-90; }
+        .btn-outline  { @apply bg-transparent text-white border border-white/25 py-[11px] px-6 rounded-[7px] text-[13px] cursor-pointer inline-flex items-center gap-2 hover:border-gold hover:text-gold; }
+        .service-card { @apply bg-white rounded-[10px] border border-[0.5px] border-border-light p-5 transition-colors hover:border-gold; }
+        .usp-item     { @apply flex items-start gap-3 bg-white rounded-[10px] border border-[0.5px] border-border-light p-5; }
+        .usp-badge    { @apply w-10 h-10 rounded-lg bg-navy flex items-center justify-center shrink-0; }
+        .team-card    { @apply bg-white rounded-[10px] border border-[0.5px] border-border-light p-5 text-center; }
+        .avatar       { @apply w-14 h-14 rounded-full bg-navy flex items-center justify-center text-base font-bold text-gold mx-auto mb-3; }
+        .nav-link     { @apply text-[#A8BCE0] text-[13px] no-underline hover:text-gold transition-colors; }
+        .section-label{ @apply text-brand-red text-[11px] font-bold tracking-widest uppercase mb-2; }
+        .section-title{ @apply text-navy text-2xl font-bold mb-2; }
+        .section-sub  { @apply text-body-text text-sm; }
+        .contact-icon { @apply w-10 h-10 bg-navy/[0.06] rounded-lg flex items-center justify-center shrink-0; }
+        .feedback-input { @apply w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-white text-[13px] placeholder-navy-text/60 focus:outline-none focus:border-gold/50 transition-colors resize-none; }
+        .cert-pill    { @apply inline-flex items-center gap-2 bg-white border border-[0.5px] border-border-light rounded-lg py-2 px-4 text-[12.5px] text-navy font-medium; }
+        .stat-item    { @apply bg-white/[0.04] py-5 px-4 text-center; }
+      }
+    </style>
+  {% else %}
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+  {% endif %}
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="font-sans bg-white text-navy">
+
+  {# ── Flash messages ──────────────────────────────────────────────────── #}
+  {% if messages %}
+    <div class="fixed top-4 right-4 z-50 flex flex-col gap-2">
+      {% for message in messages %}
+        <div class="{% if message.tags == 'success' %}bg-green-600{% else %}bg-brand-red{% endif %} text-white text-sm font-medium px-5 py-3 rounded-lg shadow-lg max-w-sm">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {# ── Navigation ──────────────────────────────────────────────────────── #}
+  <nav class="bg-navy h-16 flex items-center px-8">
+    <div class="max-w-content w-full mx-auto flex items-center justify-between">
+      <a href="{% url 'core:home' %}">
+        <img src="{% static 'images/logo.png' %}" alt="Prokar Ekspert Audit" class="h-10 w-auto"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="hidden text-gold font-bold text-lg">PROKAR</span>
+      </a>
+
+      <div class="flex items-center gap-8">
+        <div class="hidden md:flex gap-8">
+          <a href="{% url 'core:home' %}" class="nav-link">{% trans "Главная" %}</a>
+          <a href="{% url 'blog:post_list' %}" class="nav-link">{% trans "Публикации" %}</a>
+          <a href="{% url 'core:home' %}#services" class="nav-link">{% trans "Услуги" %}</a>
+          <a href="{% url 'core:home' %}#contact" class="nav-link">{% trans "Контакты" %}</a>
+        </div>
+
+        {# Language switcher #}
+        <div class="flex items-center gap-1">
+          {% get_current_language as CURRENT_LANG %}
+          <form action="{% url 'set_language' %}" method="post" class="inline">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <button type="submit" name="language" value="ru"
+              class="text-[11px] font-bold px-2 py-1 rounded transition-colors {% if CURRENT_LANG == 'ru' %}text-gold{% else %}text-[#A8BCE0] hover:text-gold{% endif %}">
+              РУ
+            </button>
+          </form>
+          <span class="text-[#3A5070] text-xs">/</span>
+          <form action="{% url 'set_language' %}" method="post" class="inline">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <button type="submit" name="language" value="uz"
+              class="text-[11px] font-bold px-2 py-1 rounded transition-colors {% if CURRENT_LANG == 'uz' %}text-gold{% else %}text-[#A8BCE0] hover:text-gold{% endif %}">
+              UZ
+            </button>
+          </form>
+        </div>
+
+        <a href="{% url 'core:home' %}#contact"
+           class="bg-gold text-navy border-0 py-2 px-5 rounded-[6px] text-[13px] font-bold cursor-pointer hover:opacity-90 transition-opacity">
+          {% trans "Консультация" %}
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  {# ── Main content ────────────────────────────────────────────────────── #}
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  {# ── Footer — always with contact details + feedback form ───────────── #}
+  <section id="contact" class="bg-off-white py-14 px-8">
+    <div class="max-w-content mx-auto">
+      <div class="text-center mb-8">
+        <div class="section-label">{% trans "Контакты" %}</div>
+        <div class="section-title">{% trans "Свяжитесь с нами" %}</div>
+        <div class="section-sub">{% trans "Ответим на все вопросы и подберём оптимальное решение" %}</div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {# Contact details #}
+        <div class="flex flex-col gap-4">
+          <div class="flex items-start gap-4">
+            <div class="contact-icon"><i class="ti ti-map-pin text-navy text-lg"></i></div>
+            <div>
+              <strong class="block text-[13px] font-semibold text-navy mb-1">{% trans "Адрес" %}</strong>
+              <span class="text-[12.5px] text-body-text">{% trans "г. Ташкент, Яккасарайский р-н, ул. Битик Берег 70, корп. 2" %}</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="contact-icon"><i class="ti ti-phone text-navy text-lg"></i></div>
+            <div>
+              <strong class="block text-[13px] font-semibold text-navy mb-1">{% trans "Телефоны" %}</strong>
+              <span class="text-[12.5px] text-body-text">+998 71 254 04 33 · +998 90 188 69 12</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="contact-icon"><i class="ti ti-mail text-navy text-lg"></i></div>
+            <div>
+              <strong class="block text-[13px] font-semibold text-navy mb-1">Email</strong>
+              <span class="text-[12.5px] text-body-text">pir-management@mail.ru</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="contact-icon"><i class="ti ti-world text-navy text-lg"></i></div>
+            <div>
+              <strong class="block text-[13px] font-semibold text-navy mb-1">{% trans "Сайт" %}</strong>
+              <span class="text-[12.5px] text-body-text">www.prokar.uz</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="contact-icon"><i class="ti ti-clock text-navy text-lg"></i></div>
+            <div>
+              <strong class="block text-[13px] font-semibold text-navy mb-1">{% trans "Режим работы" %}</strong>
+              <span class="text-[12.5px] text-body-text">{% trans "Пн–Пт: 9:00 – 18:00" %}</span>
+            </div>
+          </div>
+        </div>
+
+        {# Feedback form #}
+        <div class="bg-navy rounded-xl p-8">
+          <div class="inline-flex items-center gap-2 bg-gold/10 text-gold text-[11px] font-bold px-3 py-1 rounded-full mb-4">
+            <i class="ti ti-mail text-sm"></i> {% trans "Написать нам" %}
+          </div>
+          <h3 class="text-white text-lg font-bold mb-2">{% trans "Оставьте заявку" %}</h3>
+          <p class="text-navy-text text-[13px] leading-relaxed mb-5">
+            {% trans "Опишите вашу задачу — мы свяжемся в течение рабочего дня." %}
+          </p>
+
+          <form action="{% url 'core:feedback_submit' %}" method="post" class="flex flex-col gap-3">
+            {% csrf_token %}
+            <input type="text" name="full_name" required
+              placeholder="{{ feedback_form.full_name.field.widget.attrs.placeholder }}"
+              class="feedback-input"
+              value="{{ feedback_form.full_name.value|default:'' }}">
+            <input type="text" name="phone" required
+              placeholder="{{ feedback_form.phone.field.widget.attrs.placeholder }}"
+              class="feedback-input"
+              value="{{ feedback_form.phone.value|default:'' }}">
+            <textarea name="body" required rows="4"
+              placeholder="{{ feedback_form.body.field.widget.attrs.placeholder }}"
+              class="feedback-input"></textarea>
+            <button type="submit"
+              class="bg-gold text-navy border-0 font-bold py-3 px-5 rounded-lg text-[13px] cursor-pointer hover:opacity-90 transition-opacity text-left flex items-center gap-2 w-fit">
+              <i class="ti ti-send"></i> {% trans "Отправить" %}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ── Footer bar ──────────────────────────────────────────────────────── #}
+  <footer class="bg-[#060F1E] px-8 py-8">
+    <div class="max-w-content mx-auto flex flex-wrap items-center justify-between gap-4">
+      <a href="{% url 'core:home' %}">
+        <img src="{% static 'images/logo.png' %}" alt="Prokar Ekspert Audit" class="h-8 w-auto"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+        <span class="hidden text-gold font-bold">PROKAR</span>
+      </a>
+      <div class="text-footer-link text-[11.5px]">
+        © 2024 ООО «Прокар Эксперт Аудит» · {% trans "Лицензия" %} №00818 · ISO 9001
+      </div>
+      <div class="flex gap-6">
+        <a href="#" class="text-footer-link text-[11.5px] no-underline hover:text-gold transition-colors">{% trans "Политика конфиденциальности" %}</a>
+        <a href="{% url 'blog:post_list' %}" class="text-footer-link text-[11.5px] no-underline hover:text-gold transition-colors">{% trans "Публикации" %}</a>
+        <a href="{% url 'core:home' %}#contact" class="text-footer-link text-[11.5px] no-underline hover:text-gold transition-colors">{% trans "Контакты" %}</a>
+      </div>
+    </div>
+  </footer>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
