@@ -1,0 +1,11 @@
+Django>=4.2,<5.1
+psycopg2-binary
+python-decouple
+whitenoise[brotli]
+django-modeltranslation
+django-ckeditor
+Pillow
+django-unfold
+python-slugify
+django-tailwind
+django-browser-reload
