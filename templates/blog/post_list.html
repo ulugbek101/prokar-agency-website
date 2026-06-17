@@ -6,11 +6,14 @@
 {% block content %}
 <section class="bg-navy py-12 px-8 text-center">
   <div class="max-w-content mx-auto">
-    <div class="inline-block bg-gold/10 text-gold text-[11px] font-bold px-4 py-1 rounded-full mb-4 uppercase tracking-wide">
+    <div data-animate="bounce-in"
+         class="inline-block bg-gold/10 text-gold text-[11px] font-bold px-4 py-1 rounded-full mb-4 uppercase tracking-wide">
       {% trans "Блог" %}
     </div>
-    <h1 class="text-white text-[30px] font-bold mb-3">{% trans "Публикации" %}</h1>
-    <p class="text-navy-text text-sm max-w-md mx-auto">{% trans "Экспертные статьи о налогах, аудите, бухгалтерии и праве в Узбекистане" %}</p>
+    <h1 data-animate="fade-up" data-delay="150"
+        class="text-white text-[30px] font-bold mb-3">{% trans "Публикации" %}</h1>
+    <p data-animate="fade-up" data-delay="250"
+       class="text-navy-text text-sm max-w-md mx-auto">{% trans "Экспертные статьи о налогах, аудите, бухгалтерии и праве в Узбекистане" %}</p>
   </div>
 </section>
 
@@ -18,7 +21,7 @@
   <div class="max-w-content mx-auto">
 
     {% if tag_filter %}
-    <div class="mb-6 flex items-center gap-3">
+    <div class="mb-6 flex items-center gap-3" data-animate="fade-left">
       <span class="text-body-text text-sm">{% trans "Фильтр по тегу:" %} <strong class="text-gold">#{{ tag_filter }}</strong></span>
       <a href="{% url 'blog:post_list' %}" class="text-[12px] text-brand-red hover:underline">{% trans "Сбросить" %}</a>
     </div>
@@ -27,7 +30,7 @@
     {% if posts %}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
       {% for post in posts %}
-      <article class="service-card flex flex-col">
+      <article class="service-card flex flex-col" data-animate="fade-up" data-delay="{{ forloop.counter }}00">
         {% if post.image %}
           <a href="{{ post.get_absolute_url }}">
             <img src="{{ post.image.url }}" alt="{{ post.title }}"
@@ -58,7 +61,7 @@
       {% endfor %}
     </div>
     {% else %}
-    <div class="text-center py-20">
+    <div class="text-center py-20" data-animate="fade-in">
       <i class="ti ti-article text-5xl text-border-light block mb-4"></i>
       <p class="text-body-text">{% trans "Публикаций пока нет." %}</p>
     </div>

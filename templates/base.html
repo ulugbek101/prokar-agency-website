@@ -13,6 +13,24 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
+  <style>
+    [data-animate]{transition-property:opacity,transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.6s}
+    [data-animate="fade-up"]    {opacity:0;transform:translateY(36px)}
+    [data-animate="fade-left"]  {opacity:0;transform:translateX(-48px)}
+    [data-animate="fade-right"] {opacity:0;transform:translateX(48px)}
+    [data-animate="fade-in"]    {opacity:0}
+    [data-animate="scale-in"]   {opacity:0;transform:scale(.7)}
+    [data-animate="bounce-in"]  {opacity:0;transform:scale(.4);transition-timing-function:cubic-bezier(.34,1.56,.64,1);transition-duration:.65s}
+    [data-animate].is-visible   {opacity:1;transform:none}
+    [data-delay="100"]{transition-delay:.10s}[data-delay="150"]{transition-delay:.15s}
+    [data-delay="200"]{transition-delay:.20s}[data-delay="250"]{transition-delay:.25s}
+    [data-delay="300"]{transition-delay:.30s}[data-delay="350"]{transition-delay:.35s}
+    [data-delay="400"]{transition-delay:.40s}[data-delay="500"]{transition-delay:.50s}
+    [data-delay="600"]{transition-delay:.60s}[data-delay="700"]{transition-delay:.70s}
+    [data-animate].resetting{transition:none!important}
+    @media(prefers-reduced-motion:reduce){[data-animate],[data-animate].is-visible{transition:none;opacity:1;transform:none}}
+  </style>
+
   {% if debug %}
     {# Tailwind Play CDN for development when CSS not yet compiled #}
     <script src="https://cdn.tailwindcss.com"></script>
@@ -132,7 +150,7 @@
   {# ── Footer — always with contact details + feedback form ───────────── #}
   <section id="contact" class="bg-off-white py-14 px-8">
     <div class="max-w-content mx-auto">
-      <div class="text-center mb-8">
+      <div class="text-center mb-8" data-animate="fade-up">
         <div class="section-label">{% trans "Контакты" %}</div>
         <div class="section-title">{% trans "Свяжитесь с нами" %}</div>
         <div class="section-sub">{% trans "Ответим на все вопросы и подберём оптимальное решение" %}</div>
@@ -141,35 +159,35 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {# Contact details #}
         <div class="flex flex-col gap-4">
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4" data-animate="fade-left" data-delay="100">
             <div class="contact-icon"><i class="ti ti-map-pin text-navy text-lg"></i></div>
             <div>
               <strong class="block text-[13px] font-semibold text-navy mb-1">{% trans "Адрес" %}</strong>
               <span class="text-[12.5px] text-body-text">{% trans "г. Ташкент, Яккасарайский р-н, ул. Битик Берег 70, корп. 2" %}</span>
             </div>
           </div>
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4" data-animate="fade-left" data-delay="200">
             <div class="contact-icon"><i class="ti ti-phone text-navy text-lg"></i></div>
             <div>
               <strong class="block text-[13px] font-semibold text-navy mb-1">{% trans "Телефоны" %}</strong>
               <span class="text-[12.5px] text-body-text">+998 71 254 04 33 · +998 90 188 69 12</span>
             </div>
           </div>
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4" data-animate="fade-left" data-delay="300">
             <div class="contact-icon"><i class="ti ti-mail text-navy text-lg"></i></div>
             <div>
               <strong class="block text-[13px] font-semibold text-navy mb-1">Email</strong>
               <span class="text-[12.5px] text-body-text">pir-management@mail.ru</span>
             </div>
           </div>
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4" data-animate="fade-left" data-delay="400">
             <div class="contact-icon"><i class="ti ti-world text-navy text-lg"></i></div>
             <div>
               <strong class="block text-[13px] font-semibold text-navy mb-1">{% trans "Сайт" %}</strong>
               <span class="text-[12.5px] text-body-text">www.prokar.uz</span>
             </div>
           </div>
-          <div class="flex items-start gap-4">
+          <div class="flex items-start gap-4" data-animate="fade-left" data-delay="500">
             <div class="contact-icon"><i class="ti ti-clock text-navy text-lg"></i></div>
             <div>
               <strong class="block text-[13px] font-semibold text-navy mb-1">{% trans "Режим работы" %}</strong>
@@ -179,7 +197,7 @@
         </div>
 
         {# Feedback form #}
-        <div class="bg-navy rounded-xl p-8">
+        <div class="bg-navy rounded-xl p-8" data-animate="fade-right">
           <div class="inline-flex items-center gap-2 bg-gold/10 text-gold text-[11px] font-bold px-3 py-1 rounded-full mb-4">
             <i class="ti ti-mail text-sm"></i> {% trans "Написать нам" %}
           </div>
@@ -222,11 +240,11 @@
 
   {# ── Map — always in footer ──────────────────────────────────────────── #}
   <div class="bg-off-white py-6 px-8 text-center">
-    <div class="section-label">{% trans "Где мы находимся" %}</div>
-    <div class="section-title">{% trans "Наш офис" %}</div>
+    <div class="section-label" data-animate="fade-up">{% trans "Где мы находимся" %}</div>
+    <div class="section-title" data-animate="fade-up" data-delay="100">{% trans "Наш офис" %}</div>
 
     {# App deep-links — shown only on mobile screens #}
-    <div class="flex justify-center gap-3 mt-4 md:hidden flex-wrap">
+    <div class="flex justify-center gap-3 mt-4 md:hidden flex-wrap" data-animate="fade-up" data-delay="200">
       <a href="yandexnavi://map?pt=69.265587,41.284646&z=17&l=map"
          class="inline-flex items-center gap-2 bg-[#FC3F1D] text-white text-[12px] font-semibold px-4 py-2 rounded-full no-underline active:opacity-80">
         {# Yandex Navigator icon — orange rounded-square with white nav cursor #}
@@ -343,6 +361,26 @@
           { maxWidth: 210 }
         )
         .openPopup();
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var el = entry.target;
+          if (entry.isIntersecting) {
+            el.classList.add('is-visible');
+          } else {
+            /* snap back instantly so the animation replays on next entry */
+            el.classList.add('resetting');
+            el.classList.remove('is-visible');
+            requestAnimationFrame(function () { el.classList.remove('resetting'); });
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+
+      document.querySelectorAll('[data-animate]').forEach(function (el) { io.observe(el); });
     })();
   </script>
 

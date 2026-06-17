@@ -8,17 +8,21 @@
 {# ── Hero ────────────────────────────────────────────────────────────────── #}
 <section class="bg-navy py-16 px-8 text-center">
   <div class="max-w-content mx-auto">
-    <div class="inline-block bg-gold/10 text-gold text-[11px] font-bold px-4 py-1 rounded-full mb-6 tracking-wide uppercase">
+    <div data-animate="fade-up"
+         class="inline-block bg-gold/10 text-gold text-[11px] font-bold px-4 py-1 rounded-full mb-6 tracking-wide uppercase">
       {% trans "Аудит · Бухгалтерия · Налоги · Право" %}
     </div>
-    <h1 class="text-white text-[34px] font-bold leading-snug mb-4">
+    <h1 data-animate="fade-up" data-delay="150"
+        class="text-white text-[34px] font-bold leading-snug mb-4">
       {% trans "Новый взгляд на" %} <span class="text-gold">{% trans "ваш бизнес" %}</span>
     </h1>
-    <div class="border-l-2 border-gold pl-4 text-left inline-block max-w-lg text-[#7A9AC5] text-[13px] italic leading-relaxed mb-8">
+    <div data-animate="fade-up" data-delay="250"
+         class="border-l-2 border-gold pl-4 text-left inline-block max-w-lg text-[#7A9AC5] text-[13px] italic leading-relaxed mb-8">
       {% trans "«Если результат не зависит от метода решения — это математика; если зависит — это бухгалтерия»" %}
     </div>
 
-    <div class="flex justify-center gap-3 flex-wrap mb-12">
+    <div data-animate="fade-up" data-delay="350"
+         class="flex justify-center gap-3 flex-wrap mb-12">
       <a href="#contact" class="btn-primary">{% trans "Получить консультацию" %}</a>
       <button class="btn-secondary">
         <i class="ti ti-brand-telegram text-gold"></i>
@@ -28,19 +32,19 @@
 
     {# Stats #}
     <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.06] rounded-xl overflow-hidden max-w-3xl mx-auto">
-      <div class="stat-item">
+      <div class="stat-item" data-animate="bounce-in" data-delay="100">
         <div class="text-gold text-[26px] font-bold">22</div>
         <div class="text-navy-text text-[11px] mt-1">{% trans "года на рынке" %}</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item" data-animate="bounce-in" data-delay="200">
         <div class="text-gold text-[26px] font-bold">500+</div>
         <div class="text-navy-text text-[11px] mt-1">{% trans "клиентов" %}</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item" data-animate="bounce-in" data-delay="300">
         <div class="text-gold text-[26px] font-bold">15+</div>
         <div class="text-navy-text text-[11px] mt-1">{% trans "специалистов" %}</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item" data-animate="bounce-in" data-delay="400">
         <div class="text-gold text-[26px] font-bold">89%</div>
         <div class="text-navy-text text-[11px] mt-1">{% trans "возвращаются снова" %}</div>
       </div>
@@ -51,14 +55,14 @@
 {# ── Services ────────────────────────────────────────────────────────────── #}
 <section id="services" class="py-14 px-8">
   <div class="max-w-content mx-auto">
-    <div class="text-center mb-8">
+    <div class="text-center mb-8" data-animate="fade-up">
       <div class="section-label">{% trans "Наши услуги" %}</div>
       <div class="section-title">{% trans "Полный цикл финансово-правового сопровождения" %}</div>
       <div class="section-sub">{% trans "Всё, что нужно вашему бизнесу — от регистрации до налоговой проверки" %}</div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="service-card">
+      <div class="service-card" data-animate="fade-up" data-delay="100">
         <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
           <i class="ti ti-certificate text-navy text-2xl"></i>
         </div>
@@ -68,7 +72,7 @@
         <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" data-animate="fade-up" data-delay="200">
         <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
           <i class="ti ti-zoom-check text-navy text-2xl"></i>
         </div>
@@ -78,7 +82,7 @@
         <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" data-animate="fade-up" data-delay="300">
         <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
           <i class="ti ti-calculator text-navy text-2xl"></i>
         </div>
@@ -88,7 +92,7 @@
         <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" data-animate="fade-up" data-delay="100">
         <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
           <i class="ti ti-scale text-navy text-2xl"></i>
         </div>
@@ -98,7 +102,7 @@
         <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" data-animate="fade-up" data-delay="200">
         <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
           <i class="ti ti-receipt-tax text-navy text-2xl"></i>
         </div>
@@ -108,7 +112,7 @@
         <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" data-animate="fade-up" data-delay="300">
         <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
           <i class="ti ti-chart-dots text-navy text-2xl"></i>
         </div>
@@ -126,14 +130,14 @@
 {# ── Why Prokar ──────────────────────────────────────────────────────────── #}
 <section class="bg-off-white py-14 px-8">
   <div class="max-w-content mx-auto">
-    <div class="text-center mb-8">
+    <div class="text-center mb-8" data-animate="fade-up">
       <div class="section-label">{% trans "Почему Prokar" %}</div>
       <div class="section-title">{% trans "Наши преимущества" %}</div>
       <div class="section-sub">{% trans "7 причин, по которым нам доверяют более 500 компаний" %}</div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-      <div class="usp-item">
+      <div class="usp-item" data-animate="fade-left" data-delay="100">
         <div class="usp-badge"><i class="ti ti-star text-gold text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "22 года опыта" %}</h4>
@@ -141,7 +145,7 @@
         </div>
       </div>
 
-      <div class="usp-item">
+      <div class="usp-item" data-animate="fade-right" data-delay="100">
         <div class="usp-badge"><i class="ti ti-map-pin text-gold text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "Только Узбекистан" %}</h4>
@@ -149,7 +153,7 @@
         </div>
       </div>
 
-      <div class="usp-item">
+      <div class="usp-item" data-animate="fade-left" data-delay="200">
         <div class="usp-badge"><i class="ti ti-layers-intersect text-gold text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "Полный цикл" %}</h4>
@@ -157,7 +161,7 @@
         </div>
       </div>
 
-      <div class="usp-item">
+      <div class="usp-item" data-animate="fade-right" data-delay="200">
         <div class="usp-badge"><i class="ti ti-heart text-gold text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "89% лояльности" %}</h4>
@@ -165,7 +169,7 @@
         </div>
       </div>
 
-      <div class="usp-item">
+      <div class="usp-item" data-animate="fade-left" data-delay="300">
         <div class="usp-badge"><i class="ti ti-shield-check text-gold text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "Лицензировано" %}</h4>
@@ -173,7 +177,7 @@
         </div>
       </div>
 
-      <div class="usp-item">
+      <div class="usp-item" data-animate="fade-right" data-delay="300">
         <div class="usp-badge"><i class="ti ti-robot text-gold text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "AI-консультант" %}</h4>
@@ -181,7 +185,7 @@
         </div>
       </div>
 
-      <div class="usp-item">
+      <div class="usp-item" data-animate="fade-left" data-delay="400">
         <div class="usp-badge"><i class="ti ti-language text-gold text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "Два языка" %}</h4>
@@ -189,7 +193,7 @@
         </div>
       </div>
 
-      <div class="usp-item">
+      <div class="usp-item" data-animate="fade-right" data-delay="400">
         <div class="usp-badge"><i class="ti ti-users text-gold text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "15+ специалистов" %}</h4>
@@ -205,29 +209,29 @@
 {# ── Team ────────────────────────────────────────────────────────────────── #}
 <section class="py-14 px-8">
   <div class="max-w-content mx-auto">
-    <div class="text-center mb-8">
+    <div class="text-center mb-8" data-animate="fade-up">
       <div class="section-label">{% trans "Команда" %}</div>
       <div class="section-title">{% trans "Наши специалисты" %}</div>
       <div class="section-sub">{% trans "Профессионалы с многолетним опытом в аудите и консалтинге" %}</div>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="team-card">
+      <div class="team-card" data-animate="scale-in" data-delay="100">
         <div class="avatar">ПН</div>
         <h4 class="text-[13px] font-semibold text-navy mb-1">Прокудина Н.Н.</h4>
         <p class="text-[11.5px] text-body-text">{% trans "Директор" %}</p>
       </div>
-      <div class="team-card">
+      <div class="team-card" data-animate="scale-in" data-delay="200">
         <div class="avatar">ТР</div>
         <h4 class="text-[13px] font-semibold text-navy mb-1">Раджабов Т.Р.</h4>
         <p class="text-[11.5px] text-body-text">{% trans "Директор по аудиту" %}</p>
       </div>
-      <div class="team-card">
+      <div class="team-card" data-animate="scale-in" data-delay="300">
         <div class="avatar">НЮ</div>
         <h4 class="text-[13px] font-semibold text-navy mb-1">Ли Ю.И.</h4>
         <p class="text-[11.5px] text-body-text">{% trans "Аудитор" %}</p>
       </div>
-      <div class="team-card">
+      <div class="team-card" data-animate="scale-in" data-delay="400">
         <div class="avatar">СА</div>
         <h4 class="text-[13px] font-semibold text-navy mb-1">Надажанов С.А.</h4>
         <p class="text-[11.5px] text-body-text">{% trans "Программист" %}</p>
@@ -235,10 +239,10 @@
     </div>
 
     <div class="flex flex-wrap gap-3 mt-6 justify-center">
-      <div class="cert-pill"><i class="ti ti-award text-gold text-base"></i> {% trans "Лицензия №00818" %}</div>
-      <div class="cert-pill"><i class="ti ti-award text-gold text-base"></i> ISO 9001</div>
-      <div class="cert-pill"><i class="ti ti-building-bank text-gold text-base"></i> {% trans "Аудиторская палата РУз" %}</div>
-      <div class="cert-pill"><i class="ti ti-shield text-gold text-base"></i> {% trans "Страховой полис №3708/45/0934" %}</div>
+      <div class="cert-pill" data-animate="bounce-in" data-delay="100"><i class="ti ti-award text-gold text-base"></i> {% trans "Лицензия №00818" %}</div>
+      <div class="cert-pill" data-animate="bounce-in" data-delay="200"><i class="ti ti-award text-gold text-base"></i> ISO 9001</div>
+      <div class="cert-pill" data-animate="bounce-in" data-delay="300"><i class="ti ti-building-bank text-gold text-base"></i> {% trans "Аудиторская палата РУз" %}</div>
+      <div class="cert-pill" data-animate="bounce-in" data-delay="400"><i class="ti ti-shield text-gold text-base"></i> {% trans "Страховой полис №3708/45/0934" %}</div>
     </div>
   </div>
 </section>
@@ -248,14 +252,15 @@
 <div class="h-px bg-[#E0E8F4]"></div>
 <section class="bg-off-white py-14 px-8">
   <div class="max-w-content mx-auto">
-    <div class="text-center mb-8">
+    <div class="text-center mb-8" data-animate="fade-up">
       <div class="section-label">{% trans "Публикации" %}</div>
       <div class="section-title">{% trans "Последние материалы" %}</div>
       <div class="section-sub">{% trans "Экспертные статьи о налогах, праве и бизнесе" %}</div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       {% for post in latest_posts %}
-      <a href="{{ post.get_absolute_url }}" class="service-card no-underline block">
+      <a href="{{ post.get_absolute_url }}" class="service-card no-underline block"
+         data-animate="fade-up" data-delay="{{ forloop.counter }}00">
         {% if post.image %}
           <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-40 object-cover rounded-lg mb-4">
         {% endif %}
@@ -269,7 +274,7 @@
       </a>
       {% endfor %}
     </div>
-    <div class="text-center mt-6">
+    <div class="text-center mt-6" data-animate="fade-up" data-delay="400">
       <a href="{% url 'blog:post_list' %}" class="btn-primary inline-block">{% trans "Все публикации" %}</a>
     </div>
   </div>
@@ -279,10 +284,10 @@
 {# ── CTA ─────────────────────────────────────────────────────────────────── #}
 <section class="bg-navy py-14 px-8 text-center">
   <div class="max-w-content mx-auto">
-    <div class="text-gold text-[11px] font-bold tracking-widest uppercase mb-3">{% trans "Начнём работу" %}</div>
-    <h2 class="text-white text-[26px] font-bold mb-3">{% trans "Готовы решить вашу задачу?" %}</h2>
-    <p class="text-navy-text text-sm mb-8">{% trans "Первая консультация — бесплатно. Опыт 22 лет на вашей стороне." %}</p>
-    <div class="flex justify-center gap-3 flex-wrap">
+    <div class="text-gold text-[11px] font-bold tracking-widest uppercase mb-3" data-animate="fade-up">{% trans "Начнём работу" %}</div>
+    <h2 class="text-white text-[26px] font-bold mb-3" data-animate="fade-up" data-delay="100">{% trans "Готовы решить вашу задачу?" %}</h2>
+    <p class="text-navy-text text-sm mb-8" data-animate="fade-up" data-delay="200">{% trans "Первая консультация — бесплатно. Опыт 22 лет на вашей стороне." %}</p>
+    <div class="flex justify-center gap-3 flex-wrap" data-animate="fade-up" data-delay="300">
       <a href="#contact" class="btn-red">{% trans "Получить бесплатную консультацию" %}</a>
       <button class="btn-outline"><i class="ti ti-calculator text-gold"></i> {% trans "Рассчитать стоимость" %}</button>
       <button class="btn-outline"><i class="ti ti-calendar text-gold"></i> {% trans "Записаться на встречу" %}</button>

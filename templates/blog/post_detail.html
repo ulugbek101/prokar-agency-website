@@ -35,7 +35,8 @@
 {# ── Breadcrumb / back ─────────────────────────────────────────────────── #}
 <div class="bg-navy px-8 py-4">
   <div class="max-w-content mx-auto">
-    <a href="{% url 'blog:post_list' %}" class="text-navy-text text-[13px] hover:text-gold transition-colors">
+    <a href="{% url 'blog:post_list' %}" class="text-navy-text text-[13px] hover:text-gold transition-colors"
+       data-animate="fade-left">
       <i class="ti ti-arrow-left text-[12px]"></i> {% trans "Все публикации" %}
     </a>
   </div>
@@ -44,7 +45,7 @@
 {# ── Post header ──────────────────────────────────────────────────────────── #}
 <div class="bg-navy px-8 pb-12 pt-6">
   <div class="max-w-content mx-auto">
-    <div class="flex flex-wrap gap-2 mb-4">
+    <div class="flex flex-wrap gap-2 mb-4" data-animate="fade-up">
       {% for tag in post.tags.all %}
         <a href="{% url 'blog:post_list' %}?tag={{ tag.name }}"
            class="inline-block bg-gold/10 text-gold text-[11px] font-bold px-3 py-1 rounded-full hover:bg-gold/20 transition-colors">
@@ -52,8 +53,9 @@
         </a>
       {% endfor %}
     </div>
-    <h1 class="text-white text-[28px] md:text-[32px] font-bold leading-snug mb-4">{{ post.title }}</h1>
-    <div class="flex items-center gap-4 text-navy-text text-[12px]">
+    <h1 data-animate="fade-up" data-delay="100"
+        class="text-white text-[28px] md:text-[32px] font-bold leading-snug mb-4">{{ post.title }}</h1>
+    <div class="flex items-center gap-4 text-navy-text text-[12px]" data-animate="fade-up" data-delay="200">
       <span><i class="ti ti-calendar text-[11px]"></i> {{ post.created_at|date:"d F Y" }}</span>
       {% if post.updated_at != post.created_at %}
         <span><i class="ti ti-refresh text-[11px]"></i> {% trans "Обновлено" %} {{ post.updated_at|date:"d.m.Y" }}</span>
@@ -64,7 +66,7 @@
 
 {# ── Cover image ─────────────────────────────────────────────────────────── #}
 {% if post.image %}
-<div class="max-w-content mx-auto px-8 -mt-6">
+<div class="max-w-content mx-auto px-8 -mt-6" data-animate="scale-in">
   <img src="{{ post.image.url }}" alt="{{ post.title }}"
        class="w-full max-h-80 object-cover rounded-xl shadow-lg">
 </div>
@@ -76,12 +78,12 @@
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
 
       {# Main content #}
-      <div class="post-body text-[15px] leading-relaxed">
+      <div class="post-body text-[15px] leading-relaxed" data-animate="fade-up" data-delay="100">
         {{ post.body|safe }}
       </div>
 
       {# Sidebar #}
-      <aside class="flex flex-col gap-4">
+      <aside class="flex flex-col gap-4" data-animate="fade-left" data-delay="200">
         {# Tags box #}
         {% if post.tags.all %}
         <div class="bg-off-white rounded-xl p-5">
