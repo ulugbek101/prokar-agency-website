@@ -1,0 +1,285 @@
+# Uzbek translations for Prokar Ekspert Audit
+msgid ""
+msgstr ""
+"Project-Id-Version: prokar 1.0\n"
+"Language: uz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Аудит, бухгалтерия, налоги и юридическое сопровождение бизнеса в Узбекистане"
+msgstr "O'zbekistonda biznes uchun audit, buxgalteriya, soliqlar va yuridik yordam"
+
+msgid "Главная"
+msgstr "Bosh sahifa"
+
+msgid "Публикации"
+msgstr "Maqolalar"
+
+msgid "Услуги"
+msgstr "Xizmatlar"
+
+msgid "Контакты"
+msgstr "Aloqa"
+
+msgid "Консультация"
+msgstr "Maslahat"
+
+msgid "Аудит · Бухгалтерия · Налоги · Право"
+msgstr "Audit · Buxgalteriya · Soliqlar · Huquq"
+
+msgid "Новый взгляд на"
+msgstr "Biznesingizga"
+
+msgid "ваш бизнес"
+msgstr "yangi nazar"
+
+msgid "«Если результат не зависит от метода решения — это математика; если зависит — это бухгалтерия»"
+msgstr "«Agar natija yechim usuliga bog'liq bo'lmasa — bu matematika; bog'liq bo'lsa — bu buxgalteriya»"
+
+msgid "Получить консультацию"
+msgstr "Maslahat olish"
+
+msgid "Задать вопрос в Telegram"
+msgstr "Telegramda savol berish"
+
+msgid "года на рынке"
+msgstr "yil bozorda"
+
+msgid "клиентов"
+msgstr "mijoz"
+
+msgid "специалистов"
+msgstr "mutaxassis"
+
+msgid "возвращаются снова"
+msgstr "qaytib keladi"
+
+msgid "Наши услуги"
+msgstr "Bizning xizmatlar"
+
+msgid "Полный цикл финансово-правового сопровождения"
+msgstr "Moliyaviy-huquqiy yordam to'liq sikli"
+
+msgid "Всё, что нужно вашему бизнесу — от регистрации до налоговой проверки"
+msgstr "Biznesingizga kerak bo'lgan hamma narsa — ro'yxatdan o'tishdan soliq tekshiruvigacha"
+
+msgid "Обязательный аудит"
+msgstr "Majburiy audit"
+
+msgid "Подробнее"
+msgstr "Batafsil"
+
+msgid "Свяжитесь с нами"
+msgstr "Biz bilan bog'laning"
+
+msgid "Ответим на все вопросы и подберём оптимальное решение"
+msgstr "Barcha savollarga javob beramiz va eng yaxshi yechimni topamiz"
+
+msgid "Адрес"
+msgstr "Manzil"
+
+msgid "г. Ташкент, Яккасарайский р-н, ул. Битик Берег 70, корп. 2"
+msgstr "Toshkent sh., Yakkasaroy t., Bitik Bereg ko'ch. 70, 2-korpus"
+
+msgid "Телефоны"
+msgstr "Telefonlar"
+
+msgid "Сайт"
+msgstr "Sayt"
+
+msgid "Режим работы"
+msgstr "Ish vaqti"
+
+msgid "Пн–Пт: 9:00 – 18:00"
+msgstr "Du–Ju: 9:00 – 18:00"
+
+msgid "Написать нам"
+msgstr "Bizga yozing"
+
+msgid "Оставьте заявку"
+msgstr "Ariza qoldiring"
+
+msgid "Опишите вашу задачу — мы свяжемся в течение рабочего дня."
+msgstr "Vazifangizni tasvirlab bering — ish kuni davomida bog'lanamiz."
+
+msgid "Отправить"
+msgstr "Yuborish"
+
+msgid "Политика конфиденциальности"
+msgstr "Maxfiylik siyosati"
+
+msgid "Лицензия"
+msgstr "Litsenziya"
+
+msgid "Ваше имя"
+msgstr "Ismingiz"
+
+msgid "Иван Иванов"
+msgstr "Ism Familiya"
+
+msgid "Телефон"
+msgstr "Telefon"
+
+msgid "Сообщение"
+msgstr "Xabar"
+
+msgid "Опишите ваш вопрос или задачу…"
+msgstr "Savolingiz yoki vazifangizni tasvirlab bering…"
+
+msgid "Ваше сообщение отправлено! Мы свяжемся с вами в ближайшее время."
+msgstr "Xabaringiz yuborildi! Tez orada siz bilan bog'lanamiz."
+
+msgid "Пожалуйста, проверьте правильность заполнения формы."
+msgstr "Iltimos, formani to'g'ri to'ldirganingizni tekshiring."
+
+msgid "Читать"
+msgstr "O'qish"
+
+msgid "Все публикации"
+msgstr "Barcha maqolalar"
+
+msgid "Последние материалы"
+msgstr "So'nggi maqolalar"
+
+msgid "Экспертные статьи о налогах, праве и бизнесе"
+msgstr "Soliqlar, huquq va biznes bo'yicha ekspert maqolalar"
+
+msgid "Экспертные статьи о налогах, аудите, бухгалтерии и праве в Узбекистане"
+msgstr "O'zbekistonda soliqlar, audit, buxgalteriya va huquq bo'yicha ekspert maqolalar"
+
+msgid "Блог"
+msgstr "Blog"
+
+msgid "Фильтр по тегу:"
+msgstr "Teg bo'yicha filtr:"
+
+msgid "Сбросить"
+msgstr "Bekor qilish"
+
+msgid "Публикаций пока нет."
+msgstr "Hozircha maqolalar yo'q."
+
+msgid "Теги"
+msgstr "Teglar"
+
+msgid "Нужна консультация?"
+msgstr "Maslahat kerakmi?"
+
+msgid "Наши специалисты помогут разобраться в вашем вопросе."
+msgstr "Mutaxassislarimiz savolingizni hal qilishga yordam beradi."
+
+msgid "Связаться"
+msgstr "Bog'lanish"
+
+msgid "Обновлено"
+msgstr "Yangilangan"
+
+msgid "Prokar Ekspert Audit — Аудит, Бухгалтерия, Налоги, Право"
+msgstr "Prokar Ekspert Audit — Audit, Buxgalteriya, Soliqlar, Huquq"
+
+msgid "Начнём работу"
+msgstr "Ishni boshlaylik"
+
+msgid "Готовы решить вашу задачу?"
+msgstr "Vazifangizni hal qilishga tayyormiz?"
+
+msgid "Первая консультация — бесплатно. Опыт 22 лет на вашей стороне."
+msgstr "Birinchi maslahat — bepul. 22 yillik tajriba sizning tomoningizda."
+
+msgid "Получить бесплатную консультацию"
+msgstr "Bepul maslahat olish"
+
+msgid "Рассчитать стоимость"
+msgstr "Narxni hisoblash"
+
+msgid "Записаться на встречу"
+msgstr "Uchrashuvga yozilish"
+
+msgid "Почему Prokar"
+msgstr "Nima uchun Prokar"
+
+msgid "Наши преимущества"
+msgstr "Bizning ustunliklarimiz"
+
+msgid "7 причин, по которым нам доверяют более 500 компаний"
+msgstr "500 dan ortiq kompaniya bizga ishonishining 7 sababi"
+
+msgid "22 года опыта"
+msgstr "22 yillik tajriba"
+
+msgid "Проверенная экспертиза на рынке Узбекистана с 2002 года"
+msgstr "2002 yildan beri O'zbekiston bozorida sinovdan o'tgan tajriba"
+
+msgid "Только Узбекистан"
+msgstr "Faqat O'zbekiston"
+
+msgid "Глубокое знание НК, ГК, ТрК Уз и практики ГНИ"
+msgstr "NK, FK, MK O'z va davlat soliq inspeksiyasi amaliyotini chuqur bilish"
+
+msgid "Полный цикл"
+msgstr "To'liq sikl"
+
+msgid "Бухгалтерия, налоги, аудит, право, кадры — в одном месте"
+msgstr "Buxgalteriya, soliqlar, audit, huquq, kadrlar — bir joyda"
+
+msgid "89% лояльности"
+msgstr "89% sadoqat"
+
+msgid "Клиенты возвращаются и рекомендуют нас партнёрам"
+msgstr "Mijozlar qaytib keladi va bizni hamkorlarga tavsiya qiladi"
+
+msgid "Лицензировано"
+msgstr "Litsenziyalangan"
+
+msgid "Официальная лицензия №00818, Аудиторская палата, ISO 9001"
+msgstr "Rasmiy litsenziya №00818, Audit palatasi, ISO 9001"
+
+msgid "AI-консультант"
+msgstr "AI-maslahatchi"
+
+msgid "Telegram-бот для мгновенных ответов 24/7"
+msgstr "24/7 tezkor javoblar uchun Telegram-bot"
+
+msgid "Два языка"
+msgstr "Ikki til"
+
+msgid "Обслуживание на русском и узбекском языках"
+msgstr "Rus va o'zbek tillarida xizmat ko'rsatish"
+
+msgid "15+ специалистов"
+msgstr "15+ mutaxassis"
+
+msgid "Сертифицированные аудиторы, бухгалтеры и финансовые эксперты"
+msgstr "Sertifikatlangan auditorlar, buxgalterlar va moliyaviy mutaxassislar"
+
+msgid "Команда"
+msgstr "Jamoa"
+
+msgid "Наши специалисты"
+msgstr "Bizning mutaxassislar"
+
+msgid "Профессионалы с многолетним опытом в аудите и консалтинге"
+msgstr "Audit va konsalting sohasida ko'p yillik tajribaga ega mutaxassislar"
+
+msgid "Директор"
+msgstr "Direktor"
+
+msgid "Директор по аудиту"
+msgstr "Audit direktori"
+
+msgid "Аудитор"
+msgstr "Auditor"
+
+msgid "Программист"
+msgstr "Dasturchi"
+
+msgid "Лицензия №00818"
+msgstr "Litsenziya №00818"
+
+msgid "Аудиторская палата РУз"
+msgstr "O'zR Audit palatasi"
+
+msgid "Страховой полис №3708/45/0934"
+msgstr "Sug'urta polisi №3708/45/0934"
