@@ -26,9 +26,10 @@ def send_feedback_notification(feedback):
     phone_digits = phone.replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
 
     text = (
-        f"<b>{feedback.full_name}</b>\n"
-        f'<a href="tel:{phone_digits}">{phone}</a>\n\n'
-        f"<i>{feedback.body}</i>"
+        "--- Новое обращение с web-сайта ---\n\n"
+        f"👤 ФИО: <b>{feedback.full_name}</b>\n"
+        f'📞 Телефон: <a href="tel:{phone_digits}">{phone}</a>\n'
+        f"💬 Сообщение: <i>{feedback.body}</i>"
     )
 
     threading.Thread(
