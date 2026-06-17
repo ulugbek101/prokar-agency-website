@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env.local
+
+# Django
+*.log
+db.sqlite3
+/staticfiles/
+/media/
+*.mo
+
+# Environment
+.env
+
+# Node / Tailwind build
+node_modules/
+theme/static_src/node_modules/
+theme/static/css/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage
+.coverage
+htmlcov/
