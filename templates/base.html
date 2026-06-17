@@ -33,20 +33,24 @@
     /* ── Form attention pulse ── */
     @keyframes form-attention {
       0%   { transform:translateX(0);    border-color:rgba(201,168,76,0);   box-shadow:0 0 0 0   rgba(201,168,76,0) }
-      4%   { transform:translateX(-7px); border-color:rgba(201,168,76,.95); box-shadow:0 0 0 6px rgba(201,168,76,.35) }
-      8%   { transform:translateX(7px) }
-      12%  { transform:translateX(-6px) }
-      16%  { transform:translateX(5px) }
-      20%  { transform:translateX(-3px) }
-      24%  { transform:translateX(2px) }
-      28%  { transform:translateX(0) }
-      50%  { border-color:rgba(201,168,76,.2); box-shadow:0 0 0 6px rgba(201,168,76,.08) }
-      65%  { border-color:rgba(201,168,76,0);  box-shadow:0 0 0 0   rgba(201,168,76,0) }
+      2%   { transform:translateX(-7px); border-color:rgba(201,168,76,.95); box-shadow:0 0 0 6px rgba(201,168,76,.35) }
+      4%   { transform:translateX(7px) }
+      6%   { transform:translateX(-6px) }
+      8%   { transform:translateX(5px) }
+      10%  { transform:translateX(-3px) }
+      12%  { transform:translateX(2px) }
+      14%  { transform:translateX(0) }
+      40%  { border-color:rgba(201,168,76,.2); box-shadow:0 0 0 6px rgba(201,168,76,.08) }
+      55%  { border-color:rgba(201,168,76,0);  box-shadow:0 0 0 0   rgba(201,168,76,0) }
       100% { transform:translateX(0) }
     }
     #feedback-form-card {
       border: 2px solid transparent;
       animation: form-attention 8s ease-in-out 5s infinite;
+    }
+    #feedback-form-card:hover,
+    #feedback-form-card:focus-within {
+      animation-play-state: paused;
     }
   </style>
 
@@ -80,10 +84,10 @@
         .btn-secondary{ @apply bg-transparent text-white border border-white/25 py-[11px] px-6 rounded-[7px] text-[13px] cursor-pointer inline-flex items-center gap-2 hover:border-gold hover:text-gold; }
         .btn-red      { @apply bg-brand-red text-white font-semibold py-[11px] px-6 rounded-[7px] text-[13px] border-0 cursor-pointer hover:opacity-90; }
         .btn-outline  { @apply bg-transparent text-white border border-white/25 py-[11px] px-6 rounded-[7px] text-[13px] cursor-pointer inline-flex items-center gap-2 hover:border-gold hover:text-gold; }
-        .service-card { @apply bg-white rounded-[10px] border border-[0.5px] border-border-light p-5 transition-colors hover:border-gold; }
-        .usp-item     { @apply flex items-start gap-3 bg-white rounded-[10px] border border-[0.5px] border-border-light p-5; }
+        .service-card { @apply bg-white rounded-[10px] border-[0.5px] border-border-light p-5 transition-colors hover:border-gold; }
+        .usp-item     { @apply flex items-start gap-3 bg-white rounded-[10px] border-[0.5px] border-border-light p-5; }
         .usp-badge    { @apply w-10 h-10 rounded-lg bg-navy flex items-center justify-center shrink-0; }
-        .team-card    { @apply bg-white rounded-[10px] border border-[0.5px] border-border-light p-5 text-center; }
+        .team-card    { @apply bg-white rounded-[10px] border-[0.5px] border-border-light p-5 text-center; }
         .avatar       { @apply w-14 h-14 rounded-full bg-navy flex items-center justify-center text-base font-bold text-gold mx-auto mb-3; }
         .nav-link     { @apply text-[#A8BCE0] text-[13px] no-underline hover:text-gold transition-colors; }
         .section-label{ @apply text-brand-red text-[11px] font-bold tracking-widest uppercase mb-2; }
@@ -91,7 +95,7 @@
         .section-sub  { @apply text-body-text text-sm; }
         .contact-icon { @apply w-10 h-10 bg-navy/[0.06] rounded-lg flex items-center justify-center shrink-0; }
         .feedback-input { @apply w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-white text-[13px] placeholder-navy-text/60 focus:outline-none focus:border-gold/50 transition-colors resize-none; }
-        .cert-pill    { @apply inline-flex items-center gap-2 bg-white border border-[0.5px] border-border-light rounded-lg py-2 px-4 text-[12.5px] text-navy font-medium; }
+        .cert-pill    { @apply inline-flex items-center gap-2 bg-white border-[0.5px] border-border-light rounded-lg py-2 px-4 text-[12.5px] text-navy font-medium; }
         .stat-item    { @apply bg-white/[0.04] py-5 px-4 text-center; }
       }
     </style>
