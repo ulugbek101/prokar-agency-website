@@ -286,3 +286,9 @@ msgstr "Sug'urta polisi №3708/45/0934"
 
 msgid "Открыть на карте"
 msgstr "Xaritada ochish"
+
+msgid "Где мы находимся"
+msgstr "Biz qayerdamiz"
+
+msgid "Наш офис"
+msgstr "Bizning ofis"
