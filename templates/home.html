@@ -216,28 +216,70 @@
     </div>
 
     {# Carousel — overflow hidden on section, track slides L→R #}
-    <div id="team-carousel" class="overflow-hidden -mx-1">
+    <div id="team-carousel" class="overflow-hidden">
       <div id="team-track" class="flex" style="gap:16px; will-change:transform">
-        <div class="team-card" style="flex-shrink:0">
-          <div class="avatar">ПН</div>
-          <h4 class="text-[13px] font-semibold text-navy mb-1">Прокудина Н.Н.</h4>
-          <p class="text-[11.5px] text-body-text">{% trans "Директор" %}</p>
+
+        {% load static %}
+        <div class="team-card overflow-hidden" style="flex-shrink:0; padding:0; text-align:left">
+          <div class="relative overflow-hidden bg-off-white" style="aspect-ratio:3/4">
+            <img src="{% static 'images/team/prokudina.jpg' %}" alt="Прокудина К.А."
+                 class="w-full h-full object-cover object-top"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="absolute inset-0 items-center justify-center bg-navy" style="display:none">
+              <span class="text-gold font-bold text-3xl">ПК</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px 16px">
+            <h4 class="text-[15px] font-bold text-navy mb-0.5">Прокудина К.А.</h4>
+            <p class="text-[12px] text-body-text">{% trans "Руководитель" %}</p>
+          </div>
         </div>
-        <div class="team-card" style="flex-shrink:0">
-          <div class="avatar">ТР</div>
-          <h4 class="text-[13px] font-semibold text-navy mb-1">Раджабов Т.Р.</h4>
-          <p class="text-[11.5px] text-body-text">{% trans "Директор по аудиту" %}</p>
+
+        <div class="team-card overflow-hidden" style="flex-shrink:0; padding:0; text-align:left">
+          <div class="relative overflow-hidden bg-off-white" style="aspect-ratio:3/4">
+            <img src="{% static 'images/team/radjabov.jpg' %}" alt="Раджабов Т.Р."
+                 class="w-full h-full object-cover object-top"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="absolute inset-0 items-center justify-center bg-navy" style="display:none">
+              <span class="text-gold font-bold text-3xl">ТР</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px 16px">
+            <h4 class="text-[15px] font-bold text-navy mb-0.5">Раджабов Т.Р.</h4>
+            <p class="text-[12px] text-body-text">{% trans "Директор по аудиту" %}</p>
+          </div>
         </div>
-        <div class="team-card" style="flex-shrink:0">
-          <div class="avatar">НЮ</div>
-          <h4 class="text-[13px] font-semibold text-navy mb-1">Ли Ю.И.</h4>
-          <p class="text-[11.5px] text-body-text">{% trans "Аудитор" %}</p>
+
+        <div class="team-card overflow-hidden" style="flex-shrink:0; padding:0; text-align:left">
+          <div class="relative overflow-hidden bg-off-white" style="aspect-ratio:3/4">
+            <img src="{% static 'images/team/li.jpg' %}" alt="Ли Е.Г."
+                 class="w-full h-full object-cover object-top"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="absolute inset-0 items-center justify-center bg-navy" style="display:none">
+              <span class="text-gold font-bold text-3xl">ЛЕ</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px 16px">
+            <h4 class="text-[15px] font-bold text-navy mb-0.5">Ли Е.Г.</h4>
+            <p class="text-[12px] text-body-text">{% trans "Аудитор" %}</p>
+          </div>
         </div>
-        <div class="team-card" style="flex-shrink:0">
-          <div class="avatar">СА</div>
-          <h4 class="text-[13px] font-semibold text-navy mb-1">Надажанов С.А.</h4>
-          <p class="text-[11.5px] text-body-text">{% trans "Программист" %}</p>
+
+        <div class="team-card overflow-hidden" style="flex-shrink:0; padding:0; text-align:left">
+          <div class="relative overflow-hidden bg-off-white" style="aspect-ratio:3/4">
+            <img src="{% static 'images/team/dadajanov.jpg' %}" alt="Дадажанов С.Д."
+                 class="w-full h-full object-cover object-top"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="absolute inset-0 items-center justify-center bg-navy" style="display:none">
+              <span class="text-gold font-bold text-3xl">ДС</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px 16px">
+            <h4 class="text-[15px] font-bold text-navy mb-0.5">Дадажанов С.Д.</h4>
+            <p class="text-[12px] text-body-text">{% trans "Программист" %}</p>
+          </div>
         </div>
+
       </div>
     </div>
 

@@ -266,6 +266,9 @@ msgstr "Audit va konsalting sohasida ko'p yillik tajribaga ega mutaxassislar"
 msgid "Директор"
 msgstr "Direktor"
 
+msgid "Руководитель"
+msgstr "Rahbar"
+
 msgid "Директор по аудиту"
 msgstr "Audit direktori"
 
