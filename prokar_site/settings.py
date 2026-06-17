@@ -1,5 +1,9 @@
 from pathlib import Path
 from decouple import config, Csv
+from environs import Env as _Env
+
+_env = _Env()
+_env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -179,6 +183,11 @@ CKEDITOR_CONFIGS = {
         ]),
     },
 }
+
+# ── Django Unfold ─────────────────────────────────────────────────────────────
+# ── Telegram notifications ────────────────────────────────────────────────────
+TELEGRAM_BOT_TOKEN = _env.str('TELEGRAM_BOT_TOKEN', default='')
+TELEGRAM_ADMIN_IDS = _env.list('TELEGRAM_ADMIN_IDS', default=[])
 
 # ── Django Unfold ─────────────────────────────────────────────────────────────
 UNFOLD = {

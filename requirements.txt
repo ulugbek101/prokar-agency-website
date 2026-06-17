@@ -9,3 +9,5 @@ django-unfold
 python-slugify
 django-tailwind
 django-browser-reload
+environs
+requests

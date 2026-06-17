@@ -187,7 +187,7 @@
             {% trans "Опишите вашу задачу — мы свяжемся в течение рабочего дня." %}
           </p>
 
-          <form action="{% url 'core:feedback_submit' %}" method="post" class="flex flex-col gap-3">
+          <form id="feedback-form" action="{% url 'core:feedback_submit' %}" method="post" class="flex flex-col gap-3">
             {% csrf_token %}
             <input type="text" name="full_name" required
               placeholder="{{ feedback_form.full_name.field.widget.attrs.placeholder }}"
@@ -200,9 +200,18 @@
             <textarea name="body" required rows="4"
               placeholder="{{ feedback_form.body.field.widget.attrs.placeholder }}"
               class="feedback-input"></textarea>
-            <button type="submit"
-              class="bg-gold text-navy border-0 font-bold py-3 px-5 rounded-lg text-[13px] cursor-pointer hover:opacity-90 transition-opacity text-left flex items-center gap-2 w-fit">
-              <i class="ti ti-send"></i> {% trans "Отправить" %}
+            <button type="submit" id="feedback-submit-btn"
+              class="bg-gold text-navy border-0 font-bold py-3 px-5 rounded-lg text-[13px] cursor-pointer hover:opacity-90 transition-all text-left inline-flex items-center gap-2 w-fit disabled:opacity-50 disabled:cursor-not-allowed">
+              <span id="feedback-btn-text" class="inline-flex items-center gap-2">
+                <i class="ti ti-send"></i> {% trans "Отправить" %}
+              </span>
+              <span id="feedback-btn-loading" class="hidden items-center gap-2">
+                <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+                {% trans "Отправка..." %}
+              </span>
             </button>
           </form>
         </div>
@@ -273,6 +282,23 @@
     </div>
   </footer>
 
+  {# ── Feedback success modal ──────────────────────────────────────────── #}
+  <div id="feedback-modal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/50" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center">
+      <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <h3 class="text-navy text-xl font-bold mb-2">{% trans "Заявка отправлена" %}</h3>
+      <p class="text-body-text text-sm mb-6">{% trans "Мы получили вашу заявку и свяжемся с вами в ближайшее время." %}</p>
+      <button id="feedback-modal-close"
+        class="bg-gold text-navy border-0 font-bold py-2.5 px-6 rounded-lg text-sm cursor-pointer hover:opacity-90 transition-opacity">
+        {% trans "Закрыть" %}
+      </button>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     (function () {
@@ -316,6 +342,63 @@
           { maxWidth: 210 }
         )
         .openPopup();
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var form   = document.getElementById('feedback-form');
+      var modal  = document.getElementById('feedback-modal');
+      var btnClose = document.getElementById('feedback-modal-close');
+
+      function showModal() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+      function hideModal() {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+      }
+
+      if (btnClose) btnClose.addEventListener('click', hideModal);
+      if (modal) modal.addEventListener('click', function (e) {
+        if (e.target === modal) hideModal();
+      });
+
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var btn        = document.getElementById('feedback-submit-btn');
+        var btnText    = document.getElementById('feedback-btn-text');
+        var btnLoading = document.getElementById('feedback-btn-loading');
+
+        btn.disabled = true;
+        btnText.classList.add('hidden');
+        btnLoading.classList.remove('hidden');
+        btnLoading.classList.add('flex');
+
+        fetch(form.action, {
+          method: 'POST',
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          body: new FormData(form),
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data.success) {
+              form.reset();
+              showModal();
+            }
+          })
+          .catch(function () {})
+          .finally(function () {
+            btn.disabled = false;
+            btnLoading.classList.add('hidden');
+            btnLoading.classList.remove('flex');
+            btnText.classList.remove('hidden');
+          });
+      });
     })();
   </script>
 

@@ -298,3 +298,15 @@ msgstr "Yandex Navigator"
 
 msgid "Google Maps"
 msgstr "Google Maps"
+
+msgid "Заявка отправлена"
+msgstr "Ariza yuborildi"
+
+msgid "Мы получили вашу заявку и свяжемся с вами в ближайшее время."
+msgstr "Arizangizni qabul qildik va tez orada siz bilan bog'lanamiz."
+
+msgid "Закрыть"
+msgstr "Yopish"
+
+msgid "Отправка..."
+msgstr "Yuborilmoqda..."
