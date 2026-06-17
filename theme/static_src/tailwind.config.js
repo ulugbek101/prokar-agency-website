@@ -29,7 +29,7 @@ module.exports = {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
-        content: '960px',
+        content: '1200px',
       },
     },
   },
