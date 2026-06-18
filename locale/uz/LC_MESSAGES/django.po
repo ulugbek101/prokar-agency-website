@@ -313,3 +313,39 @@ msgstr "Yopish"
 
 msgid "Отправка..."
 msgstr "Yuborilmoqda..."
+
+msgid "Назад"
+msgstr "Orqaga"
+
+msgid "Опыт работы"
+msgstr "Ish tajribasi"
+
+msgid "лет"
+msgstr "yil"
+
+msgid "Другие сертификаты"
+msgstr "Boshqa sertifikatlar"
+
+msgid "Связаться"
+msgstr "Bog'lanish"
+
+msgid "Партнёры"
+msgstr "Hamkorlar"
+
+msgid "Наши партнёры"
+msgstr "Bizning hamkorlar"
+
+msgid "Лицензии"
+msgstr "Litsenziyalar"
+
+msgid "Документы и сертификаты"
+msgstr "Hujjatlar va sertifikatlar"
+
+msgid "Нажмите на документ для просмотра"
+msgstr "Ko'rish uchun hujjatni bosing"
+
+msgid "Скачать"
+msgstr "Yuklab olish"
+
+msgid "О нас"
+msgstr "Biz haqimizda"
