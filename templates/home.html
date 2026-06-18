@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
-{% block title %}{% trans "Prokar Ekspert Audit — Аудит, Бухгалтерия, Налоги, Право" %}{% endblock %}
+{% block title %}{% trans "Prokar Ekspert Audit — Аудит, Бухгалтерия, Налоги" %}{% endblock %}
 
 {% block content %}
 
 {# ── Hero ────────────────────────────────────────────────────────────────── #}
-<section class="bg-navy py-16 px-8 text-center">
+<section class="bg-navy py-16 px-8 text-center relative overflow-hidden"
+         style="background-image:url('{% static 'images/banner.png' %}');background-size:cover;background-position:center">
+  <div class="absolute inset-0 bg-navy" style="opacity:0.82"></div>
+  <div class="relative z-10">
   <div class="max-w-content mx-auto">
     <div data-animate="fade-up"
-         class="inline-block bg-gold/10 text-gold text-[11px] font-bold px-4 py-1 rounded-full mb-6 tracking-wide uppercase">
-      {% trans "Аудит · Бухгалтерия · Налоги · Право" %}
+         class="inline-block text-white text-[11px] font-bold px-4 py-1 rounded-full mb-6 tracking-wide uppercase"
+         style="background:rgba(125,28,28,0.75)">
+      {% trans "Аудит · Бухгалтерия · Налоговый консалтинг" %}
     </div>
     <h1 data-animate="fade-up" data-delay="150"
         class="text-white text-[34px] font-bold leading-snug mb-4">
@@ -24,17 +28,17 @@
     <div data-animate="fade-up" data-delay="350"
          class="flex justify-center gap-3 flex-wrap mb-12">
       <a href="#contact" class="btn-primary">{% trans "Получить консультацию" %}</a>
-      <button class="btn-secondary">
+      <a href="https://t.me/Prokudina_Kristina" target="_blank" rel="noopener noreferrer" class="btn-secondary">
         <i class="ti ti-brand-telegram text-gold"></i>
         {% trans "Задать вопрос в Telegram" %}
-      </button>
+      </a>
     </div>
 
     {# Stats #}
     <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.06] rounded-xl overflow-hidden max-w-3xl mx-auto">
       <div class="stat-item" data-animate="bounce-in" data-delay="100">
-        <div class="text-gold text-[26px] font-bold">22</div>
-        <div class="text-navy-text text-[11px] mt-1">{% trans "года на рынке" %}</div>
+        <div class="text-gold text-[26px] font-bold">25</div>
+        <div class="text-navy-text text-[11px] mt-1">{% trans "лет на рынке" %}</div>
       </div>
       <div class="stat-item" data-animate="bounce-in" data-delay="200">
         <div class="text-gold text-[26px] font-bold">500+</div>
@@ -50,6 +54,7 @@
       </div>
     </div>
   </div>
+  </div>
 </section>
 
 {# ── Services ────────────────────────────────────────────────────────────── #}
@@ -61,66 +66,81 @@
       <div class="section-sub">{% trans "Всё, что нужно вашему бизнесу — от регистрации до налоговой проверки" %}</div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="service-card" data-animate="fade-up" data-delay="100">
-        <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
-          <i class="ti ti-certificate text-navy text-2xl"></i>
+    <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-3 gap-4">
+
+      {# ── 01 Обязательный аудит — featured hero card (col-span-2 × row-span-2) ── #}
+      <div class="service-card md:col-span-2 md:row-span-2 flex flex-col justify-between p-8 !bg-navy !border-navy/30">
+        <div>
+          <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6" style="background:rgba(255,255,255,0.1)">
+            <i class="ti ti-certificate text-white" style="font-size:2.2rem"></i>
+          </div>
+          <div class="text-gold text-[12px] font-bold mb-2">01</div>
+          <h3 class="text-[22px] font-bold text-white mb-3">{% trans "Обязательный аудит" %}</h3>
+          <p class="text-[13.5px] leading-relaxed" style="color:rgba(255,255,255,0.65)">
+            {% trans "Финансовый аудит по стандартам MSA и НСФО, аудит для IT Park, KPI-аудит. Соответствие требованиям законодательства Республики Узбекистан." %}
+          </p>
         </div>
-        <div class="text-gold text-[11px] font-bold mb-1">01</div>
-        <h3 class="text-[15px] font-semibold text-navy mb-2">{% trans "Обязательный аудит" %}</h3>
-        <p class="text-[12.5px] text-body-text leading-relaxed">{% trans "Финансовый аудит по стандартам MSA и НСФО, аудит для IT Park, KPI-аудит." %}</p>
+        <a class="text-gold text-[13px] mt-8 inline-flex items-center gap-1 hover:opacity-80 transition-opacity" href="#">
+          {% trans "Подробнее" %} <i class="ti ti-arrow-right text-[12px]"></i>
+        </a>
+      </div>
+
+      {# ── 02 Инициативный аудит — deep crimson ── #}
+      <div class="service-card flex flex-col justify-between !border-transparent"
+           style="background:#7D1C1C">
+        <div>
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-4" style="background:rgba(255,255,255,0.12)">
+            <i class="ti ti-zoom-check text-white" style="font-size:1.75rem"></i>
+          </div>
+          <div class="text-gold text-[11px] font-bold mb-1">02</div>
+          <h3 class="text-[15px] font-semibold text-white mb-2">{% trans "Инициативный аудит" %}</h3>
+          <p class="text-[12.5px] leading-relaxed" style="color:rgba(255,255,255,0.65)">{% trans "Аудит по инициативе компании с применением стандартной методологии." %}</p>
+        </div>
         <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
       </div>
 
-      <div class="service-card" data-animate="fade-up" data-delay="200">
-        <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
-          <i class="ti ti-zoom-check text-navy text-2xl"></i>
+      {# ── 03 Бухгалтерский учёт — mid navy ── #}
+      <div class="service-card flex flex-col justify-between !border-transparent"
+           style="background:#132952">
+        <div>
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-4" style="background:rgba(255,255,255,0.1)">
+            <i class="ti ti-calculator text-white" style="font-size:1.75rem"></i>
+          </div>
+          <div class="text-gold text-[11px] font-bold mb-1">03</div>
+          <h3 class="text-[15px] font-semibold text-white mb-2">{% trans "Бухгалтерский учёт" %}</h3>
+          <p class="text-[12.5px] leading-relaxed" style="color:rgba(255,255,255,0.65)">{% trans "Ведение учёта по НСБУ / НСФО, трансформация отчётности, восстановление учёта." %}</p>
         </div>
-        <div class="text-gold text-[11px] font-bold mb-1">02</div>
-        <h3 class="text-[15px] font-semibold text-navy mb-2">{% trans "Инициативный аудит" %}</h3>
-        <p class="text-[12.5px] text-body-text leading-relaxed">{% trans "Аудит по инициативе компании с применением стандартной методологии." %}</p>
         <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
       </div>
 
-      <div class="service-card" data-animate="fade-up" data-delay="300">
-        <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
-          <i class="ti ti-calculator text-navy text-2xl"></i>
+      {# ── 04 Налоговое консультирование — dark maroon, wide ── #}
+      <div class="service-card md:col-span-2 flex flex-row items-start gap-5 !border-transparent"
+           style="background:#5A1414">
+        <div class="w-14 h-14 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.12)">
+          <i class="ti ti-receipt-tax text-white" style="font-size:1.75rem"></i>
         </div>
-        <div class="text-gold text-[11px] font-bold mb-1">03</div>
-        <h3 class="text-[15px] font-semibold text-navy mb-2">{% trans "Бухгалтерский учёт" %}</h3>
-        <p class="text-[12.5px] text-body-text leading-relaxed">{% trans "Ведение учёта по НСБУ / НСФО, трансформация отчётности, восстановление учёта." %}</p>
+        <div>
+          <div class="text-gold text-[11px] font-bold mb-1">04</div>
+          <h3 class="text-[15px] font-semibold text-white mb-2">{% trans "Налоговое консультирование" %}</h3>
+          <p class="text-[12.5px] leading-relaxed" style="color:rgba(255,255,255,0.65)">{% trans "Налоговое планирование, подготовка к проверкам ГНИ, выбор системы налогообложения." %}</p>
+          <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
+        </div>
+      </div>
+
+      {# ── 05 Финансовый консалтинг — darkest navy ── #}
+      <div class="service-card flex flex-col justify-between !border-transparent"
+           style="background:#060F1E">
+        <div>
+          <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-4" style="background:rgba(255,255,255,0.1)">
+            <i class="ti ti-chart-dots text-white" style="font-size:1.75rem"></i>
+          </div>
+          <div class="text-gold text-[11px] font-bold mb-1">05</div>
+          <h3 class="text-[15px] font-semibold text-white mb-2">{% trans "Финансовый консалтинг" %}</h3>
+          <p class="text-[12.5px] leading-relaxed" style="color:rgba(255,255,255,0.65)">{% trans "Бизнес-анализ, бизнес-планы и ТЭО, трансфертное ценообразование, тендеры." %}</p>
+        </div>
         <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
       </div>
 
-      <div class="service-card" data-animate="fade-up" data-delay="100">
-        <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
-          <i class="ti ti-scale text-navy text-2xl"></i>
-        </div>
-        <div class="text-gold text-[11px] font-bold mb-1">04</div>
-        <h3 class="text-[15px] font-semibold text-navy mb-2">{% trans "Юридическое сопровождение" %}</h3>
-        <p class="text-[12.5px] text-body-text leading-relaxed">{% trans "Регистрация ООО, ЧП, АО, экспертиза договоров, трудовое законодательство." %}</p>
-        <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
-      </div>
-
-      <div class="service-card" data-animate="fade-up" data-delay="200">
-        <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
-          <i class="ti ti-receipt-tax text-navy text-2xl"></i>
-        </div>
-        <div class="text-gold text-[11px] font-bold mb-1">05</div>
-        <h3 class="text-[15px] font-semibold text-navy mb-2">{% trans "Налоговое консультирование" %}</h3>
-        <p class="text-[12.5px] text-body-text leading-relaxed">{% trans "Налоговое планирование, подготовка к проверкам ГНИ, выбор системы налогообложения." %}</p>
-        <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
-      </div>
-
-      <div class="service-card" data-animate="fade-up" data-delay="300">
-        <div class="w-11 h-11 bg-navy/[0.06] rounded-lg flex items-center justify-center mb-4">
-          <i class="ti ti-chart-dots text-navy text-2xl"></i>
-        </div>
-        <div class="text-gold text-[11px] font-bold mb-1">06</div>
-        <h3 class="text-[15px] font-semibold text-navy mb-2">{% trans "Финансовый консалтинг" %}</h3>
-        <p class="text-[12.5px] text-body-text leading-relaxed">{% trans "Бизнес-анализ, бизнес-планы и ТЭО, трансфертное ценообразование, тендеры." %}</p>
-        <a class="text-gold text-[12px] mt-3 block" href="#">{% trans "Подробнее" %} <i class="ti ti-arrow-right text-[11px]"></i></a>
-      </div>
     </div>
   </div>
 </section>
@@ -128,7 +148,7 @@
 <div class="h-px bg-[#E0E8F4]"></div>
 
 {# ── Why Prokar ──────────────────────────────────────────────────────────── #}
-<section class="bg-off-white py-14 px-8">
+<section id="about" class="bg-off-white py-14 px-8">
   <div class="max-w-content mx-auto">
     <div class="text-center mb-8" data-animate="fade-up">
       <div class="section-label">{% trans "Почему Prokar" %}</div>
@@ -138,15 +158,15 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
       <div class="usp-item" data-animate="fade-left" data-delay="100">
-        <div class="usp-badge"><i class="ti ti-star text-gold text-xl"></i></div>
+        <div class="usp-badge"><i class="ti ti-star text-white text-xl"></i></div>
         <div>
-          <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "22 года опыта" %}</h4>
+          <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "25 лет опыта" %}</h4>
           <p class="text-[12px] text-body-text leading-relaxed">{% trans "Проверенная экспертиза на рынке Узбекистана с 2002 года" %}</p>
         </div>
       </div>
 
       <div class="usp-item" data-animate="fade-right" data-delay="100">
-        <div class="usp-badge"><i class="ti ti-map-pin text-gold text-xl"></i></div>
+        <div class="usp-badge"><i class="ti ti-map-pin text-white text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "Только Узбекистан" %}</h4>
           <p class="text-[12px] text-body-text leading-relaxed">{% trans "Глубокое знание НК, ГК, ТрК Уз и практики ГНИ" %}</p>
@@ -154,7 +174,7 @@
       </div>
 
       <div class="usp-item" data-animate="fade-left" data-delay="200">
-        <div class="usp-badge"><i class="ti ti-layers-intersect text-gold text-xl"></i></div>
+        <div class="usp-badge"><i class="ti ti-layers-intersect text-white text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "Полный цикл" %}</h4>
           <p class="text-[12px] text-body-text leading-relaxed">{% trans "Бухгалтерия, налоги, аудит, право, кадры — в одном месте" %}</p>
@@ -162,7 +182,7 @@
       </div>
 
       <div class="usp-item" data-animate="fade-right" data-delay="200">
-        <div class="usp-badge"><i class="ti ti-heart text-gold text-xl"></i></div>
+        <div class="usp-badge"><i class="ti ti-heart text-white text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "89% лояльности" %}</h4>
           <p class="text-[12px] text-body-text leading-relaxed">{% trans "Клиенты возвращаются и рекомендуют нас партнёрам" %}</p>
@@ -170,7 +190,7 @@
       </div>
 
       <div class="usp-item" data-animate="fade-left" data-delay="300">
-        <div class="usp-badge"><i class="ti ti-shield-check text-gold text-xl"></i></div>
+        <div class="usp-badge"><i class="ti ti-shield-check text-white text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "Лицензировано" %}</h4>
           <p class="text-[12px] text-body-text leading-relaxed">{% trans "Официальная лицензия №00818, Аудиторская палата, ISO 9001" %}</p>
@@ -178,7 +198,7 @@
       </div>
 
       <div class="usp-item" data-animate="fade-right" data-delay="300">
-        <div class="usp-badge"><i class="ti ti-robot text-gold text-xl"></i></div>
+        <div class="usp-badge"><i class="ti ti-robot text-white text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "AI-консультант" %}</h4>
           <p class="text-[12px] text-body-text leading-relaxed">{% trans "Telegram-бот для мгновенных ответов 24/7" %}</p>
@@ -186,7 +206,7 @@
       </div>
 
       <div class="usp-item" data-animate="fade-left" data-delay="400">
-        <div class="usp-badge"><i class="ti ti-language text-gold text-xl"></i></div>
+        <div class="usp-badge"><i class="ti ti-language text-white text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "Два языка" %}</h4>
           <p class="text-[12px] text-body-text leading-relaxed">{% trans "Обслуживание на русском и узбекском языках" %}</p>
@@ -194,7 +214,7 @@
       </div>
 
       <div class="usp-item" data-animate="fade-right" data-delay="400">
-        <div class="usp-badge"><i class="ti ti-users text-gold text-xl"></i></div>
+        <div class="usp-badge"><i class="ti ti-users text-white text-xl"></i></div>
         <div>
           <h4 class="text-[14px] font-semibold text-navy mb-1">{% trans "15+ специалистов" %}</h4>
           <p class="text-[12px] text-body-text leading-relaxed">{% trans "Сертифицированные аудиторы, бухгалтеры и финансовые эксперты" %}</p>
@@ -219,66 +239,26 @@
     <div id="team-carousel" class="overflow-hidden">
       <div id="team-track" class="flex" style="gap:16px; will-change:transform">
 
-        {% load static %}
-        <div class="team-card overflow-hidden" style="flex-shrink:0; padding:0; text-align:left">
+        {% for member in staff_list %}
+        <a href="{{ member.get_absolute_url }}"
+           class="team-card overflow-hidden no-underline" style="flex-shrink:0; padding:0; text-align:left">
           <div class="relative overflow-hidden bg-off-white" style="aspect-ratio:3/4">
-            <img src="{% static 'images/team/prokudina.jpg' %}" alt="Прокудина К.А."
-                 class="w-full h-full object-cover object-top"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="absolute inset-0 items-center justify-center bg-navy" style="display:none">
-              <span class="text-gold font-bold text-3xl">ПК</span>
+            {% if member.photo %}
+              <img src="{{ member.photo.url }}" alt="{{ member.name }}"
+                   class="w-full h-full object-cover object-top"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            {% endif %}
+            <div class="absolute inset-0 items-center justify-center bg-navy"
+                 style="display:{% if member.photo %}none{% else %}flex{% endif %}">
+              <span class="text-gold font-bold text-3xl">{{ member.name|first }}</span>
             </div>
           </div>
           <div style="padding:14px 16px 16px">
-            <h4 class="text-[15px] font-bold text-navy mb-0.5">Прокудина К.А.</h4>
-            <p class="text-[12px] text-body-text">{% trans "Руководитель" %}</p>
+            <h4 class="text-[15px] font-bold text-navy mb-0.5">{{ member.name }}</h4>
+            <p class="text-[12px] text-body-text">{{ member.role }}</p>
           </div>
-        </div>
-
-        <div class="team-card overflow-hidden" style="flex-shrink:0; padding:0; text-align:left">
-          <div class="relative overflow-hidden bg-off-white" style="aspect-ratio:3/4">
-            <img src="{% static 'images/team/radjabov.jpg' %}" alt="Раджабов Т.Р."
-                 class="w-full h-full object-cover object-top"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="absolute inset-0 items-center justify-center bg-navy" style="display:none">
-              <span class="text-gold font-bold text-3xl">ТР</span>
-            </div>
-          </div>
-          <div style="padding:14px 16px 16px">
-            <h4 class="text-[15px] font-bold text-navy mb-0.5">Раджабов Т.Р.</h4>
-            <p class="text-[12px] text-body-text">{% trans "Директор по аудиту" %}</p>
-          </div>
-        </div>
-
-        <div class="team-card overflow-hidden" style="flex-shrink:0; padding:0; text-align:left">
-          <div class="relative overflow-hidden bg-off-white" style="aspect-ratio:3/4">
-            <img src="{% static 'images/team/li.jpg' %}" alt="Ли Е.Г."
-                 class="w-full h-full object-cover object-top"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="absolute inset-0 items-center justify-center bg-navy" style="display:none">
-              <span class="text-gold font-bold text-3xl">ЛЕ</span>
-            </div>
-          </div>
-          <div style="padding:14px 16px 16px">
-            <h4 class="text-[15px] font-bold text-navy mb-0.5">Ли Е.Г.</h4>
-            <p class="text-[12px] text-body-text">{% trans "Аудитор" %}</p>
-          </div>
-        </div>
-
-        <div class="team-card overflow-hidden" style="flex-shrink:0; padding:0; text-align:left">
-          <div class="relative overflow-hidden bg-off-white" style="aspect-ratio:3/4">
-            <img src="{% static 'images/team/dadajanov.jpg' %}" alt="Дадажанов С.Д."
-                 class="w-full h-full object-cover object-top"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="absolute inset-0 items-center justify-center bg-navy" style="display:none">
-              <span class="text-gold font-bold text-3xl">ДС</span>
-            </div>
-          </div>
-          <div style="padding:14px 16px 16px">
-            <h4 class="text-[15px] font-bold text-navy mb-0.5">Дадажанов С.Д.</h4>
-            <p class="text-[12px] text-body-text">{% trans "Программист" %}</p>
-          </div>
-        </div>
+        </a>
+        {% endfor %}
 
       </div>
     </div>
@@ -326,19 +306,127 @@
 </section>
 {% endif %}
 
-{# ── CTA ─────────────────────────────────────────────────────────────────── #}
-<section class="bg-navy py-14 px-8 text-center">
+{# ── Partners ─────────────────────────────────────────────────────────────── #}
+<div class="h-px bg-[#E0E8F4]"></div>
+<section class="py-12 px-8">
   <div class="max-w-content mx-auto">
-    <div class="text-gold text-[11px] font-bold tracking-widest uppercase mb-3" data-animate="fade-up">{% trans "Начнём работу" %}</div>
-    <h2 class="text-white text-[26px] font-bold mb-3" data-animate="fade-up" data-delay="100">{% trans "Готовы решить вашу задачу?" %}</h2>
-    <p class="text-navy-text text-sm mb-8" data-animate="fade-up" data-delay="200">{% trans "Первая консультация — бесплатно. Опыт 22 лет на вашей стороне." %}</p>
-    <div class="flex justify-center gap-3 flex-wrap" data-animate="fade-up" data-delay="300">
-      <a href="#contact" class="btn-red">{% trans "Получить бесплатную консультацию" %}</a>
-      <button class="btn-outline"><i class="ti ti-calculator text-gold"></i> {% trans "Рассчитать стоимость" %}</button>
-      <button class="btn-outline"><i class="ti ti-calendar text-gold"></i> {% trans "Записаться на встречу" %}</button>
+    <div class="text-center mb-8" data-animate="fade-up">
+      <div class="section-label">{% trans "Партнёры" %}</div>
+      <div class="section-title">{% trans "Наши партнёры" %}</div>
+    </div>
+  </div>
+  <div class="overflow-hidden" style="padding:12px 0;margin:-12px 0">
+    <div id="partners-track">
+      {# Set 1 #}
+      <div class="partner-logo">
+        <img src="{% static 'images/partners/fido_biznes.svg' %}" alt="Fido Biznes">
+      </div>
+      <div class="partner-logo">
+        <img src="{% static 'images/partners/otng.png' %}" alt="OTNG">
+      </div>
+      <div class="partner-logo">
+        <img src="{% static 'images/partners/uzkimyopharm.svg' %}" alt="Uzkimyopharm">
+      </div>
+      <div class="partner-logo">
+        <img src="{% static 'images/partners/uzexpo.svg' %}" alt="UzExpo Centre">
+      </div>
+      <div class="partner-logo">
+        <img src="{% static 'images/partners/remedy.png' %}" alt="Remedy">
+      </div>
+      <div class="partner-logo">
+        <img src="{% static 'images/partners/it_park.png' %}" alt="IT Park">
+      </div>
+      <div class="partner-logo">
+        <img src="{% static 'images/partners/eriell.svg' %}" alt="Eriell">
+      </div>
+      <div class="partner-logo">
+        <img src="{% static 'images/partners/uzsm.svg' %}" alt="Uzsm">
+      </div>
+      {# Set 2 — duplicate for seamless loop #}
+      <div class="partner-logo" aria-hidden="true">
+        <img src="{% static 'images/partners/fido_biznes.svg' %}" alt="">
+      </div>
+      <div class="partner-logo" aria-hidden="true">
+        <img src="{% static 'images/partners/otng.png' %}" alt="">
+      </div>
+      <div class="partner-logo" aria-hidden="true">
+        <img src="{% static 'images/partners/uzkimyopharm.svg' %}" alt="">
+      </div>
+      <div class="partner-logo" aria-hidden="true">
+        <img src="{% static 'images/partners/uzexpo.svg' %}" alt="">
+      </div>
+      <div class="partner-logo" aria-hidden="true">
+        <img src="{% static 'images/partners/remedy.png' %}" alt="">
+      </div>
+      <div class="partner-logo" aria-hidden="true">
+        <img src="{% static 'images/partners/it_park.png' %}" alt="">
+      </div>
+      <div class="partner-logo" aria-hidden="true">
+        <img src="{% static 'images/partners/eriell.svg' %}" alt="">
+      </div>
+      <div class="partner-logo" aria-hidden="true">
+        <img src="{% static 'images/partners/uzsm.svg' %}" alt="">
+      </div>
     </div>
   </div>
 </section>
+
+{# ── Certificates ────────────────────────────────────────────────────────── #}
+{% if certificates %}
+<div class="h-px bg-[#E0E8F4]"></div>
+<section class="py-12 px-8 bg-off-white">
+  <div class="max-w-content mx-auto">
+    <div class="text-center mb-8" data-animate="fade-up">
+      <div class="section-label">{% trans "Лицензии" %}</div>
+      <div class="section-title">{% trans "Документы и сертификаты" %}</div>
+      <div class="section-sub">{% trans "Нажмите на документ для просмотра" %}</div>
+    </div>
+  </div>
+  <div class="overflow-hidden" style="padding:16px 0;margin:-16px 0">
+    <div id="certs-track">
+      {# Set 1 #}
+      {% for cert in certificates %}
+      <div class="cert-card-slide"
+           data-cert-img="{{ cert.image.url }}"
+           {% if cert.file %}data-cert-file="{{ cert.file.url }}"{% endif %}>
+        <div class="cert-img-wrap">
+          <img src="{{ cert.image.url }}" alt="{{ cert.title }}" loading="lazy">
+        </div>
+        <div class="cert-info">
+          <p class="text-navy font-semibold text-[13px] leading-snug mb-0.5">{{ cert.title }}</p>
+          {% if cert.issued_date %}
+            <p class="text-muted-blue text-[11px]">{{ cert.issued_date|date:"d.m.Y" }}</p>
+          {% endif %}
+          {% if cert.description %}
+            <p class="text-body-text text-[11px] mt-1 leading-relaxed">{{ cert.description|truncatechars:80 }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+      {# Set 2 — duplicate for seamless loop #}
+      {% for cert in certificates %}
+      <div class="cert-card-slide" aria-hidden="true"
+           data-cert-img="{{ cert.image.url }}"
+           {% if cert.file %}data-cert-file="{{ cert.file.url }}"{% endif %}>
+        <div class="cert-img-wrap">
+          <img src="{{ cert.image.url }}" alt="" loading="lazy">
+        </div>
+        <div class="cert-info">
+          <p class="text-navy font-semibold text-[13px] leading-snug mb-0.5">{{ cert.title }}</p>
+          {% if cert.issued_date %}
+            <p class="text-muted-blue text-[11px]">{{ cert.issued_date|date:"d.m.Y" }}</p>
+          {% endif %}
+          {% if cert.description %}
+            <p class="text-body-text text-[11px] mt-1 leading-relaxed">{{ cert.description|truncatechars:80 }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 
 {% endblock %}
 
