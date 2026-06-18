@@ -1,7 +1,114 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
-{% block title %}{% trans "Prokar Ekspert Audit — Аудит, Бухгалтерия, Налоги" %}{% endblock %}
+{% block title %}Prokar Ekspert Audit — Аудит, бухгалтерия, налоги и юридические услуги в Узбекистане{% endblock %}
+{% block description %}Prokar Ekspert Audit — ведущая аудиторская и консалтинговая компания Узбекистана. Обязательный и инициативный аудит, налоговое планирование, трансформация НСБУ→МСФО, бухгалтерское и юридическое сопровождение бизнеса в Ташкенте.{% endblock %}
+{% block keywords %}аудит Узбекистан, обязательный аудит 2024, налоговый консультант Ташкент, бухгалтерские услуги Ташкент, МСФО НСБУ, налоговое планирование, НДС Узбекистан, государственные закупки, юридическое сопровождение, аудиторская компания, audit Uzbekistan, soliq maslahati Toshkent, buxgalteriya xizmatlari, IFRS Uzbekistan, Prokar Ekspert Audit{% endblock %}
+
+{% block og_title %}Prokar Ekspert Audit — Аудит, налоги и бухгалтерия в Узбекистане{% endblock %}
+{% block og_description %}Профессиональный аудит, налоговый консалтинг и бухгалтерское сопровождение для бизнеса в Узбекистане. Более 10 лет опыта. Офис в Ташкенте.{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-home.jpg' %}{% endblock %}
+{% block og_image_alt %}Prokar Ekspert Audit — профессиональный аудит и консалтинг в Узбекистане{% endblock %}
+{% block twitter_title %}Prokar Ekspert Audit — Аудит, налоги и бухгалтерия в Узбекистане{% endblock %}
+{% block twitter_description %}Профессиональный аудит, налоговый консалтинг и бухгалтерия для бизнеса в Узбекистане. Более 10 лет опыта.{% endblock %}
+
+{% block json_ld %}
+<!-- Organization / Local Business -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "@id": "https://www.prokar.uz/#organization",
+  "name": "Prokar Ekspert Audit",
+  "alternateName": ["Prokar Ekspert Audit LLC", "Prokar Ekspert Audit MChJ"],
+  "description": "Ведущая аудиторская и консалтинговая компания Узбекистана. Обязательный аудит, налоговое планирование, МСФО, бухгалтерское и юридическое сопровождение.",
+  "url": "https://www.prokar.uz",
+  "telephone": ["+998909192035", "+998901886912", "+998712540433"],
+  "email": ["pir-management@mail.ru", "k.prokudina83@gmail.com"],
+  "address": {
+    "@type": "PostalAddress",
+    "postalCode": "100090",
+    "streetAddress": "ул. Кичик Бешёгоч 70-2",
+    "addressLocality": "Ташкент",
+    "addressRegion": "Яккасарайский район",
+    "addressCountry": "UZ"
+  },
+  "openingHours": "Mo-Fr 09:00-18:00",
+  "areaServed": {"@type": "Country", "name": "Uzbekistan"},
+  "serviceType": ["Audit", "Tax Consulting", "Accounting", "Legal Services", "IFRS Reporting", "Government Procurement"],
+  "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-home.jpg' %}",
+  "priceRange": "$$",
+  "sameAs": ["https://www.prokar.uz"]
+}
+</script>
+
+<!-- WebSite + Sitelinks Searchbox -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://www.prokar.uz/#website",
+  "name": "Prokar Ekspert Audit",
+  "url": "https://www.prokar.uz",
+  "inLanguage": ["ru", "uz"],
+  "publisher": {"@id": "https://www.prokar.uz/#organization"},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://www.prokar.uz/posts/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SiteNavigationElement — tells Google about key site sections (influences sitelinks) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Навигация сайта",
+  "itemListElement": [
+    {
+      "@type": "SiteNavigationElement",
+      "position": 1,
+      "name": "Главная",
+      "description": "Аудит, бухгалтерия, налоги и юридические услуги в Узбекистане",
+      "url": "https://www.prokar.uz/"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 2,
+      "name": "Услуги",
+      "description": "Аудит, налоговое планирование, МСФО, бухгалтерское и юридическое сопровождение",
+      "url": "https://www.prokar.uz/#services"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 3,
+      "name": "О нас",
+      "description": "История и команда Prokar Ekspert Audit",
+      "url": "https://www.prokar.uz/about/"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 4,
+      "name": "Публикации",
+      "description": "Экспертные статьи об аудите, налогах и праве в Узбекистане",
+      "url": "https://www.prokar.uz/posts/"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 5,
+      "name": "Контакты",
+      "description": "Свяжитесь с Prokar Ekspert Audit — г. Ташкент, тел. +99890 919-20-35",
+      "url": "https://www.prokar.uz/#contact"
+    }
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 
