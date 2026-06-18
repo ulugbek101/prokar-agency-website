@@ -4,8 +4,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Prokar Ekspert Audit{% endblock %}</title>
-  <meta name="description" content="{% block description %}{% trans 'Аудит, бухгалтерия, налоги и юридическое сопровождение бизнеса в Узбекистане' %}{% endblock %}">
+  <title>{% block title %}Prokar Ekspert Audit — Аудит, налоги и бухгалтерия в Узбекистане{% endblock %}</title>
+  <meta name="description" content="{% block description %}Prokar Ekspert Audit — ведущая аудиторская и консалтинговая компания Узбекистана. Обязательный аудит, налоговое планирование, МСФО, бухгалтерское сопровождение бизнеса в Ташкенте.{% endblock %}">
+  <meta name="keywords" content="{% block keywords %}аудит Узбекистан, обязательный аудит, налоговый консультант Ташкент, бухгалтерские услуги, МСФО, НСБУ, налоговое планирование, государственные закупки, audit Uzbekistan, soliq maslahati, buxgalteriya Toshkent, Prokar Ekspert Audit{% endblock %}">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Prokar Ekspert Audit">
+  <meta name="geo.region" content="UZ-TK">
+  <meta name="geo.placename" content="Tashkent, Uzbekistan">
+  <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+
+  <!-- Open Graph (Facebook, Telegram, LinkedIn, VK, WhatsApp) -->
+  <meta property="og:site_name" content="Prokar Ekspert Audit">
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}Prokar Ekspert Audit — Аудит, налоги и бухгалтерия в Узбекистане{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Prokar Ekspert Audit — ведущая аудиторская и консалтинговая компания Узбекистана. Обязательный аудит, налоговое планирование, МСФО, бухгалтерское сопровождение бизнеса в Ташкенте.{% endblock %}">
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-home.jpg' %}{% endblock %}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{% block og_image_alt %}Prokar Ekspert Audit — профессиональный аудит и консалтинг{% endblock %}">
+  <meta property="og:locale" content="{% if LANGUAGE_CODE == 'uz' %}uz_UZ{% else %}ru_RU{% endif %}">
+  <meta property="og:locale:alternate" content="{% if LANGUAGE_CODE == 'uz' %}ru_RU{% else %}uz_UZ{% endif %}">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% block twitter_title %}Prokar Ekspert Audit — Аудит, налоги и бухгалтерия в Узбекистане{% endblock %}">
+  <meta name="twitter:description" content="{% block twitter_description %}Prokar Ekspert Audit — ведущая аудиторская компания Узбекистана. Аудит, налоговое планирование, МСФО, бухгалтерия.{% endblock %}">
+  <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-home.jpg' %}{% endblock %}">
+  <meta name="twitter:image:alt" content="{% block twitter_image_alt %}Prokar Ekspert Audit{% endblock %}">
+
+  <!-- hreflang -->
+  {% block hreflang %}
+  <link rel="alternate" hreflang="ru" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+  <link rel="alternate" hreflang="uz" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+  <link rel="alternate" hreflang="x-default" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+  {% endblock %}
+
+  <!-- JSON-LD Structured Data -->
+  {% block json_ld %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AccountingService",
+    "name": "Prokar Ekspert Audit",
+    "alternateName": "Prokar Ekspert Audit LLC",
+    "description": "Ведущая аудиторская и консалтинговая компания Узбекистана",
+    "url": "https://www.prokar.uz",
+    "telephone": ["+998909192035", "+998901886912", "+998712540433"],
+    "email": ["pir-management@mail.ru", "k.prokudina83@gmail.com"],
+    "address": {
+      "@type": "PostalAddress",
+      "postalCode": "100090",
+      "streetAddress": "ул. Кичик Бешёгоч 70-2",
+      "addressLocality": "Ташкент",
+      "addressRegion": "Яккасарайский район",
+      "addressCountry": "UZ"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "addressCountry": "UZ"
+    },
+    "areaServed": {"@type": "Country", "name": "Uzbekistan"},
+    "openingHours": "Mo-Fr 09:00-18:00",
+    "serviceType": ["Audit", "Tax Consulting", "Accounting", "Legal Services", "IFRS Reporting"],
+    "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-home.jpg' %}"
+  }
+  </script>
+  {% endblock %}
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -445,21 +510,21 @@
             <div class="contact-icon"><i class="ti ti-map-pin text-lg" style="color:#7D1C1C"></i></div>
             <div>
               <strong class="block text-[13px] font-semibold text-navy mb-1">{% trans "Адрес" %}</strong>
-              <span class="text-[12.5px] text-body-text">{% trans "г. Ташкент, Яккасарайский р-н, ул. Битик Берег 70, корп. 2" %}</span>
+              <span class="text-[12.5px] text-body-text">{% trans "100090, г. Ташкент, Яккасарайский район, ул. Кичик Бешёгоч 70-2" %}</span>
             </div>
           </div>
           <div class="flex items-start gap-4" data-animate="fade-left" data-delay="200">
             <div class="contact-icon"><i class="ti ti-phone text-lg" style="color:#7D1C1C"></i></div>
             <div>
               <strong class="block text-[13px] font-semibold text-navy mb-1">{% trans "Телефоны" %}</strong>
-              <span class="text-[12.5px] text-body-text">+998 71 254 04 33 · +998 90 188 69 12</span>
+              <span class="text-[12.5px] text-body-text">+99890 919-20-35 · +99890 188-69-12 · +998 71 254-04-33</span>
             </div>
           </div>
           <div class="flex items-start gap-4" data-animate="fade-left" data-delay="300">
             <div class="contact-icon"><i class="ti ti-mail text-lg" style="color:#7D1C1C"></i></div>
             <div>
               <strong class="block text-[13px] font-semibold text-navy mb-1">Email</strong>
-              <span class="text-[12.5px] text-body-text">pir-management@mail.ru</span>
+              <span class="text-[12.5px] text-body-text">pir-management@mail.ru<br>k.prokudina83@gmail.com</span>
             </div>
           </div>
           <div class="flex items-start gap-4" data-animate="fade-left" data-delay="400">
@@ -640,7 +705,7 @@
         .addTo(map)
         .bindPopup(
           '<strong style="color:#0B1E3D;font-size:13px">Prokar Ekspert Audit</strong><br>' +
-          '<span style="color:#5A6E8C;font-size:12px">ул. Битик Берег 70, корп. 2<br>Яккасарайский р-н, Ташкент</span>',
+          '<span style="color:#5A6E8C;font-size:12px">ул. Кичик Бешёгоч 70-2<br>Яккасарайский район, Ташкент 100090</span>',
           { maxWidth: 210 }
         )
         .openPopup();
