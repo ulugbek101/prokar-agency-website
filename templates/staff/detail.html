@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ staff.name }} — Prokar Ekspert Audit{% endblock %}
+{% block description %}{{ staff.name }}, {{ staff.role }}{% endblock %}
+
+{% block content %}
+<div class="bg-white py-10 px-8">
+  <div class="max-w-content mx-auto">
+
+    {# Back #}
+    <a href="javascript:history.back()"
+       class="inline-flex items-center gap-1.5 text-body-text text-[13px] hover:text-navy transition-colors mb-10"
+       data-animate="fade-left">
+      <i class="ti ti-arrow-left text-[12px]"></i> {% trans "Назад" %}
+    </a>
+
+    {# Two-column layout #}
+    <div class="grid grid-cols-1 md:grid-cols-[420px_1fr] gap-10 lg:gap-16 items-start">
+
+      {# Photo #}
+      <div class="rounded-2xl overflow-hidden bg-off-white" style="aspect-ratio:3/4; max-height:520px"
+           data-animate="scale-in">
+        {% if staff.photo %}
+          <img src="{{ staff.photo.url }}" alt="{{ staff.name }}"
+               class="w-full h-full object-cover object-top">
+        {% else %}
+          <div class="w-full h-full flex items-center justify-center bg-navy">
+            <span class="text-gold font-bold" style="font-size:64px">{{ staff.name|first }}</span>
+          </div>
+        {% endif %}
+      </div>
+
+      {# Info #}
+      <div class="py-2">
+        <h1 class="text-[26px] font-bold text-navy mb-1" data-animate="fade-up">{{ staff.name }}</h1>
+        <p class="text-body-text text-[15px] mb-1" data-animate="fade-up" data-delay="100">{{ staff.role }}</p>
+
+        {% if staff.experience_years %}
+          <p class="text-[13px] text-muted-blue mb-5" data-animate="fade-up" data-delay="150">
+            {% trans "Опыт работы" %} — {{ staff.experience_years }} {% trans "лет" %}
+          </p>
+        {% endif %}
+
+        {% if staff.cert_primary %}
+          <p class="text-[13px] text-body-text leading-relaxed mb-4 border-l-2 border-gold pl-4"
+             data-animate="fade-up" data-delay="200">{{ staff.cert_primary }}</p>
+        {% endif %}
+
+        {% if staff.bio %}
+          <p class="text-[14px] text-navy/80 leading-relaxed mb-6"
+             data-animate="fade-up" data-delay="250">{{ staff.bio }}</p>
+        {% endif %}
+
+        {% if staff.other_certs_list %}
+          <h2 class="text-[16px] font-bold text-navy mb-3" data-animate="fade-up" data-delay="300">
+            {% trans "Другие сертификаты" %}
+          </h2>
+          <ol class="space-y-2" data-animate="fade-up" data-delay="350">
+            {% for cert in staff.other_certs_list %}
+              <li class="text-[13px] text-body-text flex items-start gap-2">
+                <span class="text-gold font-bold shrink-0">{{ forloop.counter }}.</span>
+                {{ cert }}
+              </li>
+            {% endfor %}
+          </ol>
+        {% endif %}
+
+        {# CTA #}
+        <div class="mt-8 pt-6 border-t border-border-light" data-animate="fade-up" data-delay="400">
+          <a href="#contact" class="btn-primary inline-flex items-center gap-2">
+            <i class="ti ti-message"></i> {% trans "Связаться" %}
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
