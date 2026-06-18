@@ -80,8 +80,8 @@ msgstr "Barcha savollarga javob beramiz va eng yaxshi yechimni topamiz"
 msgid "Адрес"
 msgstr "Manzil"
 
-msgid "г. Ташкент, Яккасарайский р-н, ул. Битик Берег 70, корп. 2"
-msgstr "Toshkent sh., Yakkasaroy t., Bitik Bereg ko'ch. 70, 2-korpus"
+msgid "100090, г. Ташкент, Яккасарайский район, ул. Кичик Бешёгоч 70-2"
+msgstr "100090, Toshkent sh., Yakkasaroy t., Kichik Beshogʻoch ko'ch. 70-2"
 
 msgid "Телефоны"
 msgstr "Telefonlar"
