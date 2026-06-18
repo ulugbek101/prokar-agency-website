@@ -13,16 +13,45 @@
     <h1 data-animate="fade-up" data-delay="150"
         class="text-white text-[30px] font-bold mb-3">{% trans "Публикации" %}</h1>
     <p data-animate="fade-up" data-delay="250"
-       class="text-navy-text text-sm max-w-md mx-auto">{% trans "Экспертные статьи о налогах, аудите, бухгалтерии и праве в Узбекистане" %}</p>
+       class="text-navy-text text-sm max-w-md mx-auto mb-7">{% trans "Экспертные статьи о налогах, аудите, бухгалтерии и праве в Узбекистане" %}</p>
+
+    <form method="get" action="{% url 'blog:post_list' %}"
+          class="max-w-lg mx-auto flex gap-2">
+      {% if tag_filter %}<input type="hidden" name="tag" value="{{ tag_filter }}">{% endif %}
+      <div class="relative flex-1">
+        <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-navy-text text-[15px]"></i>
+        <input type="text" name="q" value="{{ query }}"
+               placeholder="{% trans 'Поиск по статьям на русском или узбекском...' %}"
+               class="w-full bg-white/10 border border-white/15 rounded-lg pl-9 pr-4 py-2.5 text-white text-[13.5px] placeholder-navy-text/60 focus:outline-none focus:border-white/40 transition-colors">
+      </div>
+      <button type="submit"
+              class="px-5 py-2.5 rounded-lg text-[13px] font-semibold text-white transition-opacity hover:opacity-90 shrink-0"
+              style="background:#7D1C1C">
+        {% trans "Найти" %}
+      </button>
+      {% if query %}
+      <a href="{% url 'blog:post_list' %}{% if tag_filter %}?tag={{ tag_filter }}{% endif %}"
+         title="{% trans 'Сбросить поиск' %}"
+         class="flex items-center px-3 py-2.5 rounded-lg text-navy-text border border-white/15 hover:border-white/30 transition-colors">
+        <i class="ti ti-x text-[13px]"></i>
+      </a>
+      {% endif %}
+    </form>
   </div>
 </section>
 
 <section class="py-14 px-8">
   <div class="max-w-content mx-auto">
 
-    {% if tag_filter %}
-    <div class="mb-6 flex items-center gap-3" data-animate="fade-left">
-      <span class="text-body-text text-sm">{% trans "Фильтр по тегу:" %} <strong class="text-gold">#{{ tag_filter }}</strong></span>
+    {% if tag_filter or query %}
+    <div class="mb-6 flex flex-wrap items-center gap-3" data-animate="fade-left">
+      {% if query %}
+        <span class="text-body-text text-sm">{% trans "Поиск:" %} <strong class="text-navy">&laquo;{{ query }}&raquo;</strong></span>
+      {% endif %}
+      {% if tag_filter %}
+        <span class="text-body-text text-sm">{% trans "Тег:" %} <strong class="text-gold">#{{ tag_filter }}</strong></span>
+      {% endif %}
+      <span class="text-muted-blue text-[12px]">— {{ posts|length }} {% trans "результатов" %}</span>
       <a href="{% url 'blog:post_list' %}" class="text-[12px] text-brand-red hover:underline">{% trans "Сбросить" %}</a>
     </div>
     {% endif %}
@@ -62,8 +91,13 @@
     </div>
     {% else %}
     <div class="text-center py-20" data-animate="fade-in">
-      <i class="ti ti-article text-5xl text-border-light block mb-4"></i>
-      <p class="text-body-text">{% trans "Публикаций пока нет." %}</p>
+      <i class="ti ti-search-off text-5xl text-border-light block mb-4"></i>
+      {% if query %}
+        <p class="text-body-text">{% trans "Ничего не найдено по запросу" %} &laquo;<strong>{{ query }}</strong>&raquo;.</p>
+        <a href="{% url 'blog:post_list' %}" class="text-gold text-[13px] mt-3 inline-block hover:underline">{% trans "Сбросить поиск" %}</a>
+      {% else %}
+        <p class="text-body-text">{% trans "Публикаций пока нет." %}</p>
+      {% endif %}
     </div>
     {% endif %}
 
