@@ -1,8 +1,88 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
-{% block title %}{{ post.title }} — Prokar Ekspert Audit{% endblock %}
-{% block description %}{{ post.title }}{% endblock %}
+{% block title %}{{ post.title_ru }} | {{ post.title_uz }} — Prokar Ekspert Audit{% endblock %}
+{% block description %}{{ post.body_ru|striptags|truncatechars:160 }}{% endblock %}
+{% block keywords %}{{ post.title_ru }}, {{ post.title_uz }}{% for tag in post.tags.all %}, {{ tag.name }}{% endfor %}, аудит Узбекистан, налоги Ташкент, Prokar Ekspert Audit{% endblock %}
+
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ post.title_ru }} — Prokar Ekspert Audit{% endblock %}
+{% block og_description %}{{ post.body_ru|striptags|truncatechars:200 }}{% endblock %}
+{% block og_image %}{% if post.image %}{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-home.jpg' %}{% endif %}{% endblock %}
+{% block og_image_alt %}{{ post.title_ru }}{% endblock %}
+{% block twitter_title %}{{ post.title_ru }} — Prokar Ekspert Audit{% endblock %}
+{% block twitter_description %}{{ post.body_ru|striptags|truncatechars:160 }}{% endblock %}
+{% block twitter_image %}{% if post.image %}{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-home.jpg' %}{% endif %}{% endblock %}
+
+{% block hreflang %}
+<link rel="alternate" hreflang="ru" href="{{ request.scheme }}://{{ request.get_host }}{% url 'blog:post_detail' post.slug_ru %}">
+<link rel="alternate" hreflang="uz" href="{{ request.scheme }}://{{ request.get_host }}{% url 'blog:post_detail' post.slug_uz %}">
+<link rel="alternate" hreflang="x-default" href="{{ request.scheme }}://{{ request.get_host }}{% url 'blog:post_detail' post.slug_ru %}">
+{% endblock %}
+{% block canonical_url %}{{ request.scheme }}://{{ request.get_host }}{% url 'blog:post_detail' post.slug_ru %}{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ post.title_ru }}",
+  "alternativeHeadline": "{{ post.title_uz }}",
+  "description": "{{ post.body_ru|striptags|truncatechars:200 }}",{% if post.image %}
+  "image": "{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}",{% endif %}
+  "datePublished": "{{ post.created_at|date:'c' }}",
+  "dateModified": "{{ post.updated_at|date:'c' }}",
+  "inLanguage": ["ru", "uz"],
+  "keywords": "{{ post.title_ru }}, {{ post.title_uz }}{% for tag in post.tags.all %}, {{ tag.name }}{% endfor %}",
+  "author": {
+    "@type": "Organization",
+    "name": "Prokar Ekspert Audit",
+    "url": "https://www.prokar.uz"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Prokar Ekspert Audit",
+    "url": "https://www.prokar.uz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.scheme }}://{{ request.get_host }}{% load static %}{% static 'images/logo.jpg' %}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  }
+}
+</script>
+
+<!-- BreadcrumbList — enables breadcrumb in Google search results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Главная",
+      "item": "{{ request.scheme }}://{{ request.get_host }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Публикации",
+      "item": "{{ request.scheme }}://{{ request.get_host }}/posts/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ post.title_ru }}",
+      "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'blog:post_detail' post.slug_ru %}"
+    }
+  ]
+}
+</script>
+{% endblock %}
 
 {% block extra_head %}
 <style>
