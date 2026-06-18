@@ -5,7 +5,7 @@ whitenoise[brotli]
 django-modeltranslation
 django-ckeditor
 Pillow
-django-unfold
+django-unfold==0.51.0
 python-slugify
 django-tailwind
 django-browser-reload

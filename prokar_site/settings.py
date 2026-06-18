@@ -233,6 +233,28 @@ UNFOLD = {
                 ],
             },
             {
+                "title": "Команда",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Специалисты",
+                        "icon": "badge",
+                        "link": "/admin/core/staff/",
+                    },
+                ],
+            },
+            {
+                "title": "Документы",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Документы и сертификаты",
+                        "icon": "description",
+                        "link": "/admin/core/certificate/",
+                    },
+                ],
+            },
+            {
                 "title": "Обращения",
                 "separator": True,
                 "items": [
