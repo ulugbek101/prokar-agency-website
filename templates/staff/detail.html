@@ -1,8 +1,57 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
-{% block title %}{{ staff.name }} — Prokar Ekspert Audit{% endblock %}
-{% block description %}{{ staff.name }}, {{ staff.role }}{% endblock %}
+{% block title %}{{ staff.name }} — {{ staff.role }} | Prokar Ekspert Audit{% endblock %}
+{% block description %}{{ staff.name }} — {{ staff.role }} в компании Prokar Ekspert Audit.{% if staff.experience_years %} Опыт работы {{ staff.experience_years }} лет.{% endif %}{% if staff.cert_primary %} {{ staff.cert_primary|truncatechars:80 }}{% endif %}{% endblock %}
+{% block keywords %}{{ staff.name }}, {{ staff.role }}, аудитор Узбекистан, специалист Prokar Ekspert Audit, аудиторская компания Ташкент{% endblock %}
+
+{% block og_title %}{{ staff.name }} — {{ staff.role }} | Prokar Ekspert Audit{% endblock %}
+{% block og_description %}{{ staff.name }} — {{ staff.role }} в Prokar Ekspert Audit.{% if staff.experience_years %} Опыт {{ staff.experience_years }} лет.{% endif %}{% endblock %}
+{% block og_image %}{% if staff.photo %}{{ request.scheme }}://{{ request.get_host }}{{ staff.photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-home.jpg' %}{% endif %}{% endblock %}
+{% block og_image_alt %}{{ staff.name }} — {{ staff.role }}{% endblock %}
+{% block twitter_title %}{{ staff.name }} — {{ staff.role }} | Prokar Ekspert Audit{% endblock %}
+{% block twitter_description %}{{ staff.name }} — {{ staff.role }} в Prokar Ekspert Audit.{% if staff.experience_years %} Опыт {{ staff.experience_years }} лет.{% endif %}{% endblock %}
+{% block twitter_image %}{% if staff.photo %}{{ request.scheme }}://{{ request.get_host }}{{ staff.photo.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-home.jpg' %}{% endif %}{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ staff.name }}",
+  "jobTitle": "{{ staff.role }}",{% if staff.photo %}
+  "image": "{{ request.scheme }}://{{ request.get_host }}{{ staff.photo.url }}",{% endif %}{% if staff.bio %}
+  "description": "{{ staff.bio|truncatechars:200 }}",{% endif %}
+  "worksFor": {
+    "@type": "AccountingService",
+    "name": "Prokar Ekspert Audit",
+    "url": "https://www.prokar.uz"
+  },
+  "url": "{{ request.build_absolute_uri }}"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Главная",
+      "item": "{{ request.scheme }}://{{ request.get_host }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ staff.name }}",
+      "item": "{{ request.build_absolute_uri }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <div class="bg-white py-10 px-8">
