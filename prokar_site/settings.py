@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     # third-party
     'tailwind',
     'theme',
@@ -47,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'prokar_site.middleware.AdminLocaleMiddleware',
+    'prokar_site.middleware.AdminRobotsMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
@@ -100,6 +103,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
+
+# ── Sites framework ──────────────────────────────────────────────────────────
+SITE_ID = 1
 
 # ── Internationalisation ──────────────────────────────────────────────────────
 LANGUAGE_CODE = 'ru'
