@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /ckeditor/
+Disallow: /i18n/
+Disallow: /__reload__/
+Disallow: /feedback/
+
+Allow: /
+Allow: /about/
+Allow: /posts/
+Allow: /staff/
+Allow: /static/
+Allow: /media/
+
+Sitemap: {{ request.scheme }}://{{ request.get_host }}/sitemap.xml
