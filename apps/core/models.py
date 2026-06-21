@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.urls import reverse
 
@@ -47,6 +49,52 @@ class Staff(models.Model):
     @property
     def other_certs_list(self):
         return [ln.strip() for ln in self.other_certs.splitlines() if ln.strip()]
+
+
+class AIChatSession(models.Model):
+    session_key = models.UUIDField(
+        'Ключ устройства', unique=True, db_index=True, default=uuid.uuid4,
+        help_text='UUID из localStorage браузера посетителя',
+    )
+    ip_address = models.GenericIPAddressField('IP-адрес', null=True, blank=True)
+    user_agent = models.TextField('User-Agent', blank=True)
+    created_at = models.DateTimeField('Начало переписки', auto_now_add=True)
+    updated_at = models.DateTimeField('Последнее сообщение', auto_now=True)
+
+    class Meta:
+        verbose_name = 'AI-чат — сессия'
+        verbose_name_plural = 'AI-чат — сессии'
+        ordering = ['-updated_at']
+
+    def __str__(self):
+        return f'Сессия {str(self.session_key)[:8]}… | {self.ip_address or "—"}'
+
+    @property
+    def message_count(self):
+        return self.messages.count()
+
+
+class AIChatMessage(models.Model):
+    ROLE_USER = 'user'
+    ROLE_ASSISTANT = 'assistant'
+    ROLE_CHOICES = [(ROLE_USER, 'Пользователь'), (ROLE_ASSISTANT, 'AI')]
+
+    session = models.ForeignKey(
+        AIChatSession, on_delete=models.CASCADE,
+        related_name='messages', verbose_name='Сессия',
+    )
+    role = models.CharField('Роль', max_length=16, choices=ROLE_CHOICES)
+    content = models.TextField('Сообщение')
+    created_at = models.DateTimeField('Время', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'AI-чат — сообщение'
+        verbose_name_plural = 'AI-чат — сообщения'
+        ordering = ['created_at']
+
+    def __str__(self):
+        label = 'Клиент' if self.role == self.ROLE_USER else 'AI'
+        return f'[{label}] {self.content[:60]}'
 
 
 class Certificate(models.Model):
