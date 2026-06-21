@@ -874,5 +874,425 @@
     });
   })();
   </script>
+
+  {# ── AI Chat Widget ─────────────────────────────────────────────────────── #}
+  <style>
+    @keyframes ai-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(125,28,28,0.7); }
+      70%  { box-shadow: 0 0 0 14px rgba(125,28,28,0); }
+      100% { box-shadow: 0 0 0 0 rgba(125,28,28,0); }
+    }
+    #ai-chat-btn { animation: ai-pulse 2s ease-out infinite; }
+
+    #ai-chat-window {
+      transform: scale(0.92) translateY(16px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+    }
+    #ai-chat-window.ai-open {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    #ai-chat-messages { scrollbar-width: thin; scrollbar-color: rgba(176,58,42,0.3) transparent; }
+    #ai-chat-messages::-webkit-scrollbar { width: 4px; }
+    #ai-chat-messages::-webkit-scrollbar-thumb { background: rgba(176,58,42,0.35); border-radius: 4px; }
+    #ai-msg-input::placeholder { color: rgba(0,0,0,0.35); }
+    #ai-msg-input:focus { outline: none; border-color: rgba(176,58,42,0.7); }
+    @keyframes ai-dot-wave {
+      0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+      30%            { transform: translateY(-5px); opacity: 1; }
+    }
+    .ai-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #7D1C1C;
+      animation: ai-dot-wave 1.2s ease-in-out infinite;
+    }
+    .ai-dot:nth-child(2) { animation-delay: .18s; }
+    .ai-dot:nth-child(3) { animation-delay: .36s; }
+  </style>
+
+  <!-- Floating trigger button -->
+  <button id="ai-chat-btn" aria-label="Open AI Chat"
+          style="background:#7D1C1C;border:2px solid rgba(176,58,42,0.6)"
+          class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl cursor-pointer transition-transform hover:scale-110 focus:outline-none">
+    <i class="ti ti-message-chatbot text-white text-2xl"></i>
+  </button>
+
+  <!-- Chat window -->
+  <div id="ai-chat-window"
+       style="background-color:#ffffff;border:1px solid rgba(176,58,42,0.18);box-shadow:0 20px 60px rgba(0,0,0,0.15)"
+       class="fixed bottom-24 right-6 z-50 w-80 rounded-2xl flex flex-col overflow-hidden"
+       role="dialog" aria-label="AI Chat">
+
+    <!-- Header -->
+    <div class="flex items-center gap-3 px-4 py-3 shrink-0" style="background:#7D1C1C">
+      <button id="ai-chat-close" aria-label="Close chat"
+              class="flex items-center justify-center w-7 h-7 rounded-full hover:bg-white/20 transition-colors shrink-0">
+        <i class="ti ti-arrow-left text-white text-base"></i>
+      </button>
+      <div class="flex items-center gap-2 flex-1 min-w-0">
+        <span class="w-2 h-2 rounded-full bg-green-400 shrink-0" style="box-shadow:0 0 6px #4ade80"></span>
+        <span class="text-white font-semibold text-[14px] truncate">
+          {% if LANGUAGE_CODE == 'uz' %}Prokar AI Maslahatchi{% else %}Prokar AI Консультант{% endif %}
+        </span>
+      </div>
+      <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.15)">
+        <i class="ti ti-robot text-white text-sm"></i>
+      </div>
+    </div>
+
+    <!-- Messages area -->
+    <div id="ai-chat-messages" class="flex-1 overflow-y-auto px-4 py-5" style="min-height:280px;max-height:360px;background-color:#ffffff">
+
+      <!-- Empty / welcome state -->
+      <div id="ai-empty-state" class="flex flex-col items-center text-center py-2">
+        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
+             style="background:rgba(125,28,28,0.07);border:1px solid rgba(176,58,42,0.18)">
+          <i class="ti ti-robot-face text-4xl" style="color:#7D1C1C"></i>
+        </div>
+        <p class="font-semibold text-[13px] mb-3" style="color:#1a1a1a">
+          {% if LANGUAGE_CODE == 'uz' %}Men nima qila olaman?{% else %}Чем я могу помочь?{% endif %}
+        </p>
+        <div class="flex flex-col gap-2 w-full">
+          {% if LANGUAGE_CODE == 'uz' %}
+          <div class="rounded-xl px-3 py-2.5 text-left text-[12px]" style="background:#fdf4f4;border:1px solid rgba(176,58,42,0.14);color:#333">
+            <i class="ti ti-checkup-list text-[13px] mr-1.5" style="color:#7D1C1C"></i>Audit va soliqlar bo'yicha maslahat
+          </div>
+          <div class="rounded-xl px-3 py-2.5 text-left text-[12px]" style="background:#fdf4f4;border:1px solid rgba(176,58,42,0.14);color:#333">
+            <i class="ti ti-file-description text-[13px] mr-1.5" style="color:#7D1C1C"></i>MHXS va NSBU bo'yicha savollar
+          </div>
+          <div class="rounded-xl px-3 py-2.5 text-left text-[12px]" style="background:#fdf4f4;border:1px solid rgba(176,58,42,0.14);color:#333">
+            <i class="ti ti-building-bank text-[13px] mr-1.5" style="color:#7D1C1C"></i>Davlat xaridlari va litsenziyalar
+          </div>
+          <div class="rounded-xl px-3 py-2.5 text-left text-[12px]" style="background:#fdf4f4;border:1px solid rgba(176,58,42,0.14);color:#333">
+            <i class="ti ti-info-circle text-[13px] mr-1.5" style="color:#7D1C1C"></i>Kompaniya xizmatlari haqida ma'lumot
+          </div>
+          {% else %}
+          <div class="rounded-xl px-3 py-2.5 text-left text-[12px]" style="background:#fdf4f4;border:1px solid rgba(176,58,42,0.14);color:#333">
+            <i class="ti ti-checkup-list text-[13px] mr-1.5" style="color:#7D1C1C"></i>Консультации по аудиту и налогам
+          </div>
+          <div class="rounded-xl px-3 py-2.5 text-left text-[12px]" style="background:#fdf4f4;border:1px solid rgba(176,58,42,0.14);color:#333">
+            <i class="ti ti-file-description text-[13px] mr-1.5" style="color:#7D1C1C"></i>Вопросы по МСФО и НСБУ
+          </div>
+          <div class="rounded-xl px-3 py-2.5 text-left text-[12px]" style="background:#fdf4f4;border:1px solid rgba(176,58,42,0.14);color:#333">
+            <i class="ti ti-building-bank text-[13px] mr-1.5" style="color:#7D1C1C"></i>Госзакупки и лицензирование
+          </div>
+          <div class="rounded-xl px-3 py-2.5 text-left text-[12px]" style="background:#fdf4f4;border:1px solid rgba(176,58,42,0.14);color:#333">
+            <i class="ti ti-info-circle text-[13px] mr-1.5" style="color:#7D1C1C"></i>Информация об услугах компании
+          </div>
+          {% endif %}
+        </div>
+        <p class="mt-4 text-[11px]" style="color:#aaa">
+          {% if LANGUAGE_CODE == 'uz' %}Savolingizni yozing{% else %}Напишите ваш вопрос ниже{% endif %}
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Divider -->
+    <div style="height:1px;background:rgba(176,58,42,0.12)"></div>
+
+    <!-- Input form -->
+    <form id="ai-chat-form" class="flex items-end gap-2 px-3 py-3 shrink-0" style="background-color:#ffffff">
+      <textarea id="ai-msg-input" name="message" rows="1"
+                placeholder="{% if LANGUAGE_CODE == 'uz' %}Savolingizni yozing...{% else %}Напишите вопрос...{% endif %}"
+                style="background:#f8f0f0;border:1px solid rgba(176,58,42,0.22);color:#1a1a1a;resize:none;font-size:13px;line-height:1.45;max-height:96px;transition:border-color 0.2s"
+                class="flex-1 rounded-xl px-3 py-2.5 focus:outline-none"></textarea>
+      <button type="submit"
+              style="background:#7D1C1C;min-width:38px;height:38px"
+              class="rounded-xl flex items-center justify-center shrink-0 hover:opacity-90 transition-opacity focus:outline-none shadow-md">
+        <i class="ti ti-send-2 text-white text-base"></i>
+      </button>
+    </form>
+  </div>
+
+  <script>
+  (function () {
+    var btn    = document.getElementById('ai-chat-btn');
+    var win    = document.getElementById('ai-chat-window');
+    var close  = document.getElementById('ai-chat-close');
+    var form   = document.getElementById('ai-chat-form');
+    var input  = document.getElementById('ai-msg-input');
+    var msgs   = document.getElementById('ai-chat-messages');
+    if (!btn || !win) return;
+
+    /* ── Persistent device UUID (localStorage) ───────────────────────── */
+    function genUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0;
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+    }
+    var SESSION_KEY = 'prokar_ai_sid';
+    var sid = localStorage.getItem(SESSION_KEY);
+    if (!sid) { sid = genUUID(); localStorage.setItem(SESSION_KEY, sid); }
+
+    /* ── Open / close + load history on first open ───────────────────── */
+    var historyLoaded = false;
+
+    function openChat() {
+      win.classList.add('ai-open');
+      btn.style.display = 'none';
+      if (!historyLoaded) { historyLoaded = true; loadHistory(); }
+      setTimeout(function () { input.focus(); }, 260);
+    }
+    function closeChat() { win.classList.remove('ai-open'); btn.style.display = 'flex'; }
+    btn.addEventListener('click', openChat);
+    close.addEventListener('click', closeChat);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && win.classList.contains('ai-open')) closeChat();
+    });
+
+    /* ── Auto-grow textarea ───────────────────────────────────────────── */
+    input.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 96) + 'px';
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        form.dispatchEvent(new Event('submit', { bubbles: true }));
+      }
+    });
+
+    /* ── Markdown → HTML (mirrors the Python md_to_html helper) ─────── */
+    function mdToHtml(text) {
+      text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      text = text.replace(/```(?:[a-zA-Z0-9]*)\n?([\s\S]*?)```/g, function (_, c) {
+        return '<pre style="background:rgba(0,0,0,0.3);padding:8px;border-radius:6px;overflow-x:auto;font-size:11px">' + c.trimEnd() + '</pre>';
+      });
+      text = text.replace(/`([^`\n]+)`/g, '<code style="background:rgba(0,0,0,0.25);padding:1px 4px;border-radius:3px;font-size:11px">$1</code>');
+      text = text.replace(/\*\*([\s\S]+?)\*\*/g, '<b>$1</b>');
+      text = text.replace(/__([\s\S]+?)__/g, '<b>$1</b>');
+      text = text.replace(/(?<!\*)\*([^\*\n]+)\*(?!\*)/g, '<i>$1</i>');
+      text = text.replace(/(?<!\w)_([^_\n]+)_(?!\w)/g, '<i>$1</i>');
+      text = text.replace(/~~([\s\S]+?)~~/g, '<s>$1</s>');
+      text = text.replace(/^#{1,6}\s+(.+)$/gm, '<b>$1</b>');
+      text = text.replace(/^[-*_]{3,}\s*$/gm, '<hr style="border-color:rgba(176,58,42,0.3);margin:6px 0">');
+      text = text.replace(/^[ \t]*[-*•]\s+/gm, '• ');
+      text = text.replace(/\n{3,}/g, '\n\n');
+      text = text.replace(/\n/g, '<br>');
+      return text.trim();
+    }
+
+    /* ── Make phone/email clickable in AI responses ─────────────────── */
+    function linkifyContacts(html) {
+      /* phone numbers like +998 90 919-20-35 or +998909192035 */
+      html = html.replace(/(\+998[\s\-]?\d{2}[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2})/g, function (p) {
+        var digits = p.replace(/[^\d+]/g, '');
+        return '<a href="tel:' + digits + '" style="color:#f87171;text-decoration:underline">' + p + '</a>';
+      });
+      /* emails */
+      html = html.replace(/([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/g,
+        '<a href="mailto:$1" style="color:#f87171;text-decoration:underline">$1</a>');
+      return html;
+    }
+
+    /* ── CSRF token from cookie ───────────────────────────────────────── */
+    function getCsrf() {
+      var m = document.cookie.match(/csrftoken=([^;]+)/);
+      return m ? m[1] : '';
+    }
+
+    /* ── Load conversation history from server ───────────────────────── */
+    function loadHistory() {
+      fetch('/api/ai-chat/history/?s=' + encodeURIComponent(sid))
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (!data.messages || data.messages.length === 0) return;
+          var empty = document.getElementById('ai-empty-state');
+          if (empty) empty.style.display = 'none';
+          data.messages.forEach(function (m) {
+            var html = m.role === 'assistant'
+              ? linkifyContacts(mdToHtml(m.content))
+              : m.content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            appendBubble(m.role, html, m.created_at);
+          });
+          msgs.scrollTop = msgs.scrollHeight;
+        })
+        .catch(function () { /* silently ignore network errors */ });
+    }
+
+    /* ── Format timestamp in Tashkent timezone ───────────────────────── */
+    function fmtTime(dateStr) {
+      var d = dateStr ? new Date(dateStr) : new Date();
+      return new Intl.DateTimeFormat('ru-RU', {
+        timeZone: 'Asia/Tashkent',
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit',
+      }).format(d).replace(',', '');
+    }
+
+    /* ── Append message bubble, return the content span ─────────────── */
+    function appendBubble(role, html, dateStr) {
+      var empty = document.getElementById('ai-empty-state');
+      if (empty) empty.style.display = 'none';
+
+      var isUser = role === 'user';
+
+      /* avatar icon */
+      var avatar = document.createElement('div');
+      avatar.style.cssText = 'width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;' +
+        (isUser
+          ? 'background:#7D1C1C;order:2;margin-left:6px'
+          : 'background:#fde8e8;border:1px solid rgba(176,58,42,0.2);order:0;margin-right:6px');
+      avatar.innerHTML = isUser
+        ? '<i class="ti ti-user" style="color:#fff;font-size:13px"></i>'
+        : '<i class="ti ti-robot" style="color:#7D1C1C;font-size:13px"></i>';
+
+      /* bubble */
+      var bubble = document.createElement('div');
+      bubble.style.cssText = [
+        'max-width:78%;font-size:13px;line-height:1.6;padding:8px 12px;word-break:break-word',
+        isUser
+          ? 'background:#7D1C1C;color:#fff;border-radius:16px 16px 4px 16px;order:1'
+          : 'background:#fdf4f4;border:1px solid rgba(176,58,42,0.18);color:#1a1a1a;border-radius:16px 16px 16px 4px;order:1',
+      ].join(';');
+      bubble.innerHTML = html;
+
+      /* row: avatar + bubble */
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:flex-end;' +
+        (isUser ? 'justify-content:flex-end' : 'justify-content:flex-start');
+      row.appendChild(avatar);
+      row.appendChild(bubble);
+
+      /* timestamp */
+      var ts = document.createElement('div');
+      ts.style.cssText = 'font-size:10px;color:#bbb;margin-top:3px;' +
+        (isUser ? 'text-align:right;padding-right:34px' : 'text-align:left;padding-left:34px');
+      ts.textContent = fmtTime(dateStr);
+
+      var outer = document.createElement('div');
+      outer.style.cssText = 'margin-bottom:12px';
+      outer.appendChild(row);
+      outer.appendChild(ts);
+
+      msgs.appendChild(outer);
+      msgs.scrollTop = msgs.scrollHeight;
+      return bubble;
+    }
+
+    /* ── Typing indicator ─────────────────────────────────────────────── */
+    function showTyping() {
+      var b = appendBubble('ai', '<span style="display:inline-flex;align-items:center;gap:5px;padding:2px 0"><span class="ai-dot"></span><span class="ai-dot"></span><span class="ai-dot"></span></span>');
+      return b;
+    }
+
+    /* ── Disable / enable send ────────────────────────────────────────── */
+    var sendBtn = form.querySelector('button[type=submit]');
+    function setBusy(on) {
+      input.disabled = on;
+      sendBtn.disabled = on;
+      sendBtn.style.opacity = on ? '0.5' : '1';
+    }
+
+    /* ── Character-drip queue (smooth typing effect) ────────────────── */
+    var _queue   = [];
+    var _rawFull = '';
+    var _bubble  = null;
+    var _done    = false;
+    var _timer   = null;
+    var DRIP_MS  = 18; /* ms per character — feels like natural typing speed */
+
+    function startDrip(bubble) {
+      _bubble = bubble; _queue = []; _rawFull = ''; _done = false;
+      _timer = setInterval(function () {
+        if (_queue.length === 0) {
+          if (_done) {
+            clearInterval(_timer); _timer = null;
+            _bubble.innerHTML = linkifyContacts(mdToHtml(_rawFull)) || '…';
+            setBusy(false);
+            msgs.scrollTop = msgs.scrollHeight;
+          }
+          return;
+        }
+        /* drain up to 3 chars per tick so long responses don't lag forever */
+        var n = Math.min(3, _queue.length);
+        for (var k = 0; k < n; k++) _rawFull += _queue.shift();
+        _bubble.textContent = _rawFull;
+        msgs.scrollTop = msgs.scrollHeight;
+      }, DRIP_MS);
+    }
+
+    /* ── Form submit with SSE streaming ──────────────────────────────── */
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var msg = input.value.trim();
+      if (!msg) return;
+
+      var _sentAt = new Date().toISOString();
+      appendBubble('user', msg.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'), _sentAt);
+      input.value = '';
+      input.style.height = 'auto';
+      setBusy(true);
+
+      var aiBubble = showTyping();
+      var started  = false;
+
+      try {
+        var resp = await fetch('/api/ai-chat/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': getCsrf(),
+          },
+          body: 'message=' + encodeURIComponent(msg) + '&s=' + encodeURIComponent(sid),
+        });
+
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+        var reader  = resp.body.getReader();
+        var decoder = new TextDecoder();
+        var buf     = '';
+
+        while (true) {
+          var _ref = await reader.read();
+          if (_ref.done) break;
+          buf += decoder.decode(_ref.value, { stream: true });
+
+          var lines = buf.split('\n');
+          buf = lines.pop();
+
+          for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            if (!line.startsWith('data: ')) continue;
+            var payload = line.slice(6);
+            if (payload === '[DONE]') {
+              _done = true; /* drip timer will finalize when queue empties */
+              break;
+            }
+            try {
+              var parsed = JSON.parse(payload);
+              if (parsed.error) {
+                clearInterval(_timer); _timer = null;
+                aiBubble.style.color = '#dc2626';
+                aiBubble.textContent = '⚠ ' + parsed.error;
+                setBusy(false);
+                break;
+              }
+              if (parsed.delta) {
+                if (!started) { aiBubble.innerHTML = ''; started = true; startDrip(aiBubble); }
+                /* push chars into queue instead of rendering directly */
+                for (var ci = 0; ci < parsed.delta.length; ci++) _queue.push(parsed.delta[ci]);
+              }
+            } catch (_) {}
+          }
+        }
+        /* if nothing came through at all */
+        if (!started) { _done = true; startDrip(aiBubble); }
+      } catch (err) {
+        if (_timer) { clearInterval(_timer); _timer = null; }
+        aiBubble.style.color = '#dc2626';
+        aiBubble.textContent = '⚠ Ошибка соединения. Попробуйте позже.';
+        setBusy(false);
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
