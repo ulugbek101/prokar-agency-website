@@ -34,37 +34,7 @@ sudo apt-get install -y -q \
     gettext \
     libpq-dev
 
-# ── 2. PostgreSQL ─────────────────────────────────────────────────────────────
-info "Setting up PostgreSQL..."
-if [ ! -f "$APP_DIR/.env" ]; then
-    warn ".env not found. Creating from .env.example — fill in secrets before continuing!"
-    # Will be handled in step 4
-fi
-
-# Prompt for DB credentials if not set
-if [ -z "${DB_NAME:-}" ]; then
-    read -rp "PostgreSQL database name [prokar_db]: " DB_NAME
-    DB_NAME="${DB_NAME:-prokar_db}"
-fi
-if [ -z "${DB_USER:-}" ]; then
-    read -rp "PostgreSQL user [prokar_user]: " DB_USER
-    DB_USER="${DB_USER:-prokar_user}"
-fi
-if [ -z "${DB_PASSWORD:-}" ]; then
-    read -rsp "PostgreSQL password: " DB_PASSWORD
-    echo
-    [ -z "$DB_PASSWORD" ] && error "DB_PASSWORD cannot be empty"
-fi
-
-sudo -u postgres psql -tc "SELECT 1 FROM pg_roles WHERE rolname='$DB_USER'" | grep -q 1 || \
-    sudo -u postgres psql -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD';"
-
-sudo -u postgres psql -tc "SELECT 1 FROM pg_database WHERE datname='$DB_NAME'" | grep -q 1 || \
-    sudo -u postgres psql -c "CREATE DATABASE $DB_NAME OWNER $DB_USER;"
-
-sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;"
-
-# ── 3. Clone repository ───────────────────────────────────────────────────────
+# ── 2. Clone repository ───────────────────────────────────────────────────────
 info "Cloning repository..."
 sudo mkdir -p /var/www
 sudo chown "$USER:$USER" /var/www
@@ -76,34 +46,29 @@ else
     git clone "$REPO_URL" "$APP_DIR"
 fi
 
-# ── 4. .env file ─────────────────────────────────────────────────────────────
-info "Setting up .env..."
-if [ ! -f "$APP_DIR/.env" ]; then
-    SECRET_KEY=$(python3 -c "import secrets, string; print(''.join(secrets.choice(string.ascii_letters + string.digits + '!@#%^&*(-_=+)') for _ in range(50)))")
+# ── 3. .env file ─────────────────────────────────────────────────────────────
+[ ! -f "$APP_DIR/.env" ] && error ".env not found at $APP_DIR/.env — place it there before running this script. See .env.example for the required variables."
+info ".env found — using it."
+chmod 640 "$APP_DIR/.env"
 
-    cat > "$APP_DIR/.env" <<EOF
-SECRET_KEY=$SECRET_KEY
-DEBUG=False
-ALLOWED_HOSTS=$DOMAIN,www.$DOMAIN,localhost,127.0.0.1
-CSRF_TRUSTED_ORIGINS=https://$DOMAIN,https://www.$DOMAIN
+# Read DB credentials from .env to create the PostgreSQL user/database
+DB_NAME=$(grep -E '^DB_NAME=' "$APP_DIR/.env" | cut -d= -f2)
+DB_USER=$(grep -E '^DB_USER=' "$APP_DIR/.env" | cut -d= -f2)
+DB_PASSWORD=$(grep -E '^DB_PASSWORD=' "$APP_DIR/.env" | cut -d= -f2)
 
-USE_SQLITE=False
-DB_NAME=$DB_NAME
-DB_USER=$DB_USER
-DB_PASSWORD=$DB_PASSWORD
-DB_HOST=localhost
-DB_PORT=5432
+[ -z "$DB_NAME" ]     && error "DB_NAME is not set in .env"
+[ -z "$DB_USER" ]     && error "DB_USER is not set in .env"
+[ -z "$DB_PASSWORD" ] && error "DB_PASSWORD is not set in .env"
 
-# Optional — leave blank to disable
-TELEGRAM_BOT_TOKEN=
-TELEGRAM_ADMIN_IDS=
-OPENAI_API_KEY=
-EOF
-    chmod 640 "$APP_DIR/.env"
-    info ".env created at $APP_DIR/.env"
-else
-    info ".env already exists — skipping creation."
-fi
+# ── 4. PostgreSQL ─────────────────────────────────────────────────────────────
+info "Setting up PostgreSQL..."
+sudo -u postgres psql -tc "SELECT 1 FROM pg_roles WHERE rolname='$DB_USER'" | grep -q 1 || \
+    sudo -u postgres psql -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD';"
+
+sudo -u postgres psql -tc "SELECT 1 FROM pg_database WHERE datname='$DB_NAME'" | grep -q 1 || \
+    sudo -u postgres psql -c "CREATE DATABASE $DB_NAME OWNER $DB_USER;"
+
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;"
 
 # ── 5. Python virtual environment & dependencies ──────────────────────────────
 info "Creating virtual environment..."
