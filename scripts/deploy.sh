@@ -23,6 +23,9 @@ warn()    { echo -e "${YELLOW}[WARN]${NC}  $*"; }
 error()   { echo -e "${RED}[ERROR]${NC} $*"; exit 1; }
 
 # ── 1. System packages ────────────────────────────────────────────────────────
+info "Removing stale cdrom apt source if present..."
+sudo sed -i '/^deb cdrom:/d' /etc/apt/sources.list
+
 info "Installing system packages..."
 sudo apt-get update -q
 sudo apt-get install -y -q \
